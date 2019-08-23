@@ -1,11 +1,26 @@
+# Xcode
 *.mode1v3
 *.perspectivev3
 *.pbxuser
 .DS_Store
 build/
+xcuserdata
+profile
+*.moved-aside
+DerivedData
+.idea/
+*.hmap
+*.xccheckout
+*.xcworkspace
+!default.xcworkspace
 
-# ios 工程文件
+# ios工程文件
 *.xcodeproj
 *.xcworkspace
 *.framework
 *.a
+
+# CocoaPods
+Pods
+!Podfile
+!Podfile.lock
