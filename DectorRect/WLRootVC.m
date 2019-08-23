@@ -95,6 +95,8 @@ MMCropDelegate
 }
 
 
+#pragma mark --
+#pragma mark logic method 要调用的方法
 //通过接收JS传出消息的name进行捕捉的回调方法
 - (void)userContentController:(WKUserContentController *)userContentController
       didReceiveScriptMessage:(WKScriptMessage *)message{
