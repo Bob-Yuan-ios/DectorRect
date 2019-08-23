@@ -1,5 +1,5 @@
 //
-//  CropViewController.h
+//  WLCropViewController.h
 //  MMCamScanner
 //
 //  Created by mac on 09/06/15.
@@ -13,14 +13,13 @@
 
 #import "WLBaseVC.h"
 
-//#import "ProgressHUD.h"
-@class CropViewController;
+@class WLCropViewController;
 @protocol MMCropDelegate <NSObject>
 
--(void)didFinishCropping:(UIImage *)finalCropImage from:(CropViewController *)cropObj;
+-(void)didFinishCropping:(UIImage *)finalCropImage from:(WLCropViewController *)cropObj;
 
 @end
-@interface CropViewController : WLBaseVC{
+@interface WLCropViewController : WLBaseVC{
     CGFloat _rotateSlider;
     CGRect _initialRect,final_Rect;
 }

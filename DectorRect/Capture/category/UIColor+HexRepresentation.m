@@ -9,7 +9,7 @@
 #import "UIColor+HexRepresentation.h"
 
 @implementation UIColor (HexRepresentation)
-+(UIColor*)colorWithHexString:(NSString*)hex
++ (UIColor*)colorWithHexString:(NSString*)hex
 {
     NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     

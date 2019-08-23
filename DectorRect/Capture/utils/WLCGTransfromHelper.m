@@ -37,19 +37,7 @@
     }
     // apply preview to image scaling
     transform = CGAffineTransformScale(transform, deltaX, deltaY);
-    
-//    CGPoint points[4];
-//    points[0] = CGPointApplyAffineTransform(topLeft, transform);
-//    points[1] = CGPointApplyAffineTransform(topRight, transform);
-//    points[2] = CGPointApplyAffineTransform(bottomRight, transform);
-//    points[3] = CGPointApplyAffineTransform(bottomLeft, transform);
-//    return @[
-//             [NSValue valueWithCGPoint:points[0]],
-//             [NSValue valueWithCGPoint:points[1]],
-//             [NSValue valueWithCGPoint:points[2]],
-//             [NSValue valueWithCGPoint:points[3]],
-//             ];
-    
+  
     TransformCIFeatureRect featureRect;
     featureRect.topLeft = CGPointApplyAffineTransform(topLeft, transform);
     featureRect.topRight = CGPointApplyAffineTransform(topRight, transform);

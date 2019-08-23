@@ -11,7 +11,7 @@
 
 @implementation UIImageView (UIImageView_ContentFrame)
 
-- (CGRect) contentFrame
+- (CGRect)contentFrame
 {
     CGSize imageSize = self.image.size;
     CGFloat imageScale = fminf(CGRectGetWidth(self.bounds)/imageSize.width, CGRectGetHeight(self.bounds)/imageSize.height);
@@ -20,7 +20,7 @@
     return imageFrame;
 }
 
-- (CGSize) contentSize
+- (CGSize)contentSize
 {
     CGSize imageSize = self.image.size;
    
@@ -31,7 +31,7 @@
     return finalSize;
 }
 
-- (CGFloat) contentScale
+- (CGFloat)contentScale
 {
     CGSize imageSize = self.image.size;
     CGFloat imageScale = fminf(CGRectGetWidth(self.bounds)/imageSize.width, CGRectGetHeight(self.bounds)/imageSize.height);

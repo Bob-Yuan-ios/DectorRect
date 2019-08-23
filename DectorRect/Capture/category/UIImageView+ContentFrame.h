@@ -11,8 +11,8 @@
 #import <UIKit/UIKit.h>
 @interface UIImageView (UIImageView_ContentFrame)
 
--(CGRect)contentFrame;
-- (CGFloat) contentScale;
-- (CGSize) contentSize;
+- (CGRect)contentFrame;
+- (CGFloat)contentScale;
+- (CGSize)contentSize;
 
 @end

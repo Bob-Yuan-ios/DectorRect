@@ -13,7 +13,7 @@
 #import "Masonry.h"
 
 #import "WLResultVC.h"
-#import "CropViewController.h"
+#import "WLCropViewController.h"
 
 @interface WLCameraCaptureController ()
 <
@@ -223,7 +223,7 @@ MMCropDelegate
             resultVC.resultImg = data;
             [strongSelf.nav pushViewController:resultVC animated:YES];
         }else{
-            CropViewController *crop = [CropViewController new];
+            WLCropViewController *crop = [WLCropViewController new];
             //[self.storyboard instantiateViewControllerWithIdentifier:@"crop"];
             //        crop.cropdelegate=self;
             //        ripple=[[RippleAnimation alloc] init];
@@ -239,7 +239,7 @@ MMCropDelegate
 
 
 #pragma mark crop delegate
-- (void)didFinishCropping:(UIImage *)finalCropImage from:(CropViewController *)cropObj{
+- (void)didFinishCropping:(UIImage *)finalCropImage from:(WLCropViewController *)cropObj{
     [cropObj closeWithCompletion:^{
         //        ripple=nil;
     }];

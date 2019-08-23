@@ -1,12 +1,12 @@
 //
-//  CropViewController.m
+//  WLCropViewController.m
 //  MMCamScanner
 //
 //  Created by mac on 09/06/15.
 //  Copyright (c) 2015 ailink. All rights reserved.
 //
 
-#import "CropViewController.h"
+#import "WLCropViewController.h"
 #include <vector>
 #import "MMOpenCVHelper.h"
 #define backgroundHex @"2196f3"
@@ -17,7 +17,7 @@
 
 
 
-@interface CropViewController (){
+@interface WLCropViewController (){
     UIScrollView *scrollView;
    
 }
@@ -31,7 +31,7 @@
 
 @end
 
-@implementation CropViewController
+@implementation WLCropViewController
 -(BOOL)prefersStatusBarHidden{
     return YES;
 }

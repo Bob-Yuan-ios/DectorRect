@@ -29,5 +29,5 @@
 
 
 @interface UIColor (HexRepresentation)
-+(UIColor*)colorWithHexString:(NSString*)hex;
++ (UIColor*)colorWithHexString:(NSString*)hex;
 @end

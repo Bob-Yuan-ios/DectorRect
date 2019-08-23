@@ -15,7 +15,7 @@
 #import <WebKit/WebKit.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 
-#import "CropViewController.h"
+#import "WLCropViewController.h"
 
 @interface ViewController ()
 <
@@ -248,7 +248,7 @@ MMCropDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [picker dismissViewControllerAnimated:YES completion:^{
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage]; //通过key值获取到图片
-        CropViewController *crop = [CropViewController new];
+        WLCropViewController *crop = [WLCropViewController new];
         //[self.storyboard instantiateViewControllerWithIdentifier:@"crop"];
 //        crop.cropdelegate=self;
 //        ripple=[[RippleAnimation alloc] init];
@@ -269,7 +269,7 @@ MMCropDelegate
 
 
 #pragma mark crop delegate
-- (void)didFinishCropping:(UIImage *)finalCropImage from:(CropViewController *)cropObj{
+- (void)didFinishCropping:(UIImage *)finalCropImage from:(WLCropViewController *)cropObj{
     [cropObj closeWithCompletion:^{
         //        ripple=nil;
     }];

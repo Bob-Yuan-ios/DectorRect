@@ -26,63 +26,30 @@
         _pointB=[[UIView alloc] init];
         _pointC=[[UIView alloc] init];
         _pointD=[[UIView alloc] init];
-        
-        //middle Points
-//         _pointE=[[UIView alloc] init];
-//         _pointF=[[UIView alloc] init];
-//         _pointG=[[UIView alloc] init];
-//         _pointH=[[UIView alloc] init];
-        
+    
         _pointA.alpha=0.5;_pointB.alpha=0.5;_pointC.alpha=0.5;_pointD.alpha=0.5;
-        //,_pointE.alpha=0.5,_pointF.alpha=0.5,_pointG.alpha=0.5,_pointH.alpha=0.5;
-        
+ 
         _pointA.layer.cornerRadius = kCropButtonSize/2;
         _pointB.layer.cornerRadius = kCropButtonSize/2;
         _pointC.layer.cornerRadius = kCropButtonSize/2;
         _pointD.layer.cornerRadius = kCropButtonSize/2;
-        
-//        //middle
-//         _pointE.layer.cornerRadius = kCropButtonSize/2;
-//         _pointF.layer.cornerRadius = kCropButtonSize/2;
-//         _pointG.layer.cornerRadius = kCropButtonSize/2;
-//         _pointH.layer.cornerRadius = kCropButtonSize/2;
-        
+  
         [self addSubview:_pointA];
         [self addSubview:_pointB];
         [self addSubview:_pointC];
         [self addSubview:_pointD];
-        
-//        //middle
-//        [self addSubview:_pointE];
-//        [self addSubview:_pointF];
-//        [self addSubview:_pointG];
-//        [self addSubview:_pointH];
-        
+  
         [self.points addObject:_pointD];
         [self.points addObject:_pointC];
         [self.points addObject:_pointB];
         [self.points addObject:_pointA];
-        
-        
-//        //middle
-//         [self.points addObject:_pointE];
-//         [self.points addObject:_pointF];
-//         [self.points addObject:_pointG];
-//         [self.points addObject:_pointH];
-       
+     
         
         //COLOR
         _pointA.backgroundColor=[UIColor grayColor];
          _pointB.backgroundColor=[UIColor grayColor];
          _pointC.backgroundColor=[UIColor grayColor];
          _pointD.backgroundColor=[UIColor grayColor];
-        
-//        //middle
-//        _pointE.backgroundColor=[UIColor grayColor];
-//        _pointF.backgroundColor=[UIColor grayColor];
-//        _pointG.backgroundColor=[UIColor grayColor];
-//        _pointH.backgroundColor=[UIColor grayColor];
-        
         
         [self setPoints];
         [self setClipsToBounds:NO];
@@ -167,12 +134,6 @@
     b = CGPointMake(self.bounds.size.width - 0, self.bounds.size.height - 0);
     c = CGPointMake(self.bounds.size.width - 0, 0 + 0);
     d = CGPointMake(0 + 0, 0 + 0);
-    
-//    //middle
-//    e = CGPointMake((a.x+b.x)/2 ,a.y);
-//    f = CGPointMake(b.x, 0 + (b.y + c.y)/2);
-//    g = CGPointMake((c.x+d.x)/2, 0 + c.y);
-//    h = CGPointMake(a.x, 0 + (a.y + d.y)/2);
 }
 
 - (void)setButtons
@@ -218,7 +179,7 @@
     
     [self setNeedsDisplay];
     [self setButtons];
-    [self cornerControlsMiddle];
+//    [self cornerControlsMiddle];
     [self drawRect:self.bounds];
 }
 
@@ -352,7 +313,7 @@
             [[self.points objectAtIndex:0] setFrame:temp3];
             [[self.points objectAtIndex:3] setFrame:temp0];
             [self checkangle:0];
-            [self cornerControlsMiddle];
+//            [self cornerControlsMiddle];
             [self setNeedsDisplay];
         }
         if ([self checkForVerticalIntersection]) {
@@ -362,7 +323,7 @@
             [[self.points objectAtIndex:2] setFrame:temp3];
             [[self.points objectAtIndex:3] setFrame:temp0];
             [self checkangle:0];
-            [self cornerControlsMiddle];
+//            [self cornerControlsMiddle];
             [self setNeedsDisplay];
         }
         
@@ -376,7 +337,7 @@
         
         [[self.points objectAtIndex:0] setFrame:temp2];
         [[self.points objectAtIndex:2] setFrame:temp0];
-        [self cornerControlsMiddle];
+//        [self cornerControlsMiddle];
         [self setNeedsDisplay];
         
     }
@@ -563,11 +524,9 @@
 //        NSLog(@"Point D %f %f",_pointD.frame.origin.x,_pointD.frame.origin.y);
     }
     else{
-        if(![self checkForNeighbouringPoints:currentIndex]){
-            [self movePointsForMiddle:locationPoint];
-        }
-        
-      
+//        if(![self checkForNeighbouringPoints:currentIndex]){
+//            [self movePointsForMiddle:locationPoint];
+//        }
     }
       [self setNeedsDisplay];
     
@@ -577,48 +536,12 @@
 //Corner Touch
 
 -(void)cornerControlsMiddle{
-    
-//    self.pointE.frame=CGRectMake((self.pointA.frame.origin.x+self.pointB.frame.origin.x)/2, (self.pointA.frame.origin.y+self.pointB.frame.origin.y)/2, kCropButtonSize, kCropButtonSize);
-//    self.pointG.frame=CGRectMake((self.pointC.frame.origin.x+self.pointD.frame.origin.x)/2, (self.pointC.frame.origin.y+self.pointD.frame.origin.y)/2, kCropButtonSize, kCropButtonSize);
-//    self.pointF.frame=CGRectMake((self.pointB.frame.origin.x+self.pointC.frame.origin.x)/2, (self.pointB.frame.origin.y+self.pointC.frame.origin.y)/2, kCropButtonSize, kCropButtonSize);
-//     self.pointH.frame=CGRectMake((self.pointA.frame.origin.x+self.pointD.frame.origin.x)/2, (self.pointA.frame.origin.y+self.pointD.frame.origin.y)/2, kCropButtonSize, kCropButtonSize);
+ 
 }
 
 //Middle Touch
-- (void)movePointsForMiddle:(CGPoint)locationPoint
-{
-//    switch (currentIndex) {
-//        case 4:{
-//            // 2 and 3
-//            self.pointA.frame=CGRectMake(self.pointA.frame.origin.x, locationPoint.y -kCropButtonSize/2, kCropButtonSize, kCropButtonSize);
-//            self.pointB.frame=CGRectMake(self.pointB.frame.origin.x, locationPoint.y -kCropButtonSize/2, kCropButtonSize, kCropButtonSize);
-//        }
-//
-//            break;
-//
-//        case 5:{
-//           // 1 and 2
-//            self.pointB.frame=CGRectMake(locationPoint.x -kCropButtonSize/2,self.pointB.frame.origin.y, kCropButtonSize, kCropButtonSize);
-//            self.pointC.frame=CGRectMake(locationPoint.x -kCropButtonSize/2,self.pointC.frame.origin.y, kCropButtonSize, kCropButtonSize);
-//
-//        }
-//            break;
-//        case 6:{
-//            //3 and 4
-//            self.pointC.frame=CGRectMake(self.pointC.frame.origin.x, locationPoint.y -kCropButtonSize/2, kCropButtonSize, kCropButtonSize);
-//            self.pointD.frame=CGRectMake(self.pointD.frame.origin.x, locationPoint.y -kCropButtonSize/2, kCropButtonSize, kCropButtonSize);
-//        }
-//            break;
-//        case 7:{
-//           // 1 and 4
-//            self.pointA.frame=CGRectMake(locationPoint.x -kCropButtonSize/2,self.pointA.frame.origin.y, kCropButtonSize, kCropButtonSize);
-//            self.pointD.frame=CGRectMake(locationPoint.x -kCropButtonSize/2,self.pointD.frame.origin.y, kCropButtonSize, kCropButtonSize);
-//        }
-//            break;
-//
-//
-//    }
-//    [self cornerControlsMiddle];
+- (void)movePointsForMiddle:(CGPoint)locationPoint{
+ 
 }
 
 @end

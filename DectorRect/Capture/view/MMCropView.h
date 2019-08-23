@@ -15,10 +15,7 @@
     CGPoint b;
     CGPoint c;
     CGPoint d;
-    
-    //middle
-//    CGPoint e,f,g,h;
-    
+ 
     BOOL frameMoved,middlePoint;
     int currentIndex,previousIndex;
     int k;
@@ -30,10 +27,7 @@
 @property (strong, nonatomic) UIView *pointC;
 @property (strong, nonatomic) UIView *pointB;
 @property (strong, nonatomic) UIView *pointA;
-
-//middle points
-//@property (strong, nonatomic) UIView *pointE,*pointF,*pointG,*pointH;
-
+ 
 @property (nonatomic, strong) NSMutableArray *points;
 
 
