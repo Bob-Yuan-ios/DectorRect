@@ -288,7 +288,8 @@ MMCropDelegate
 }
 
 
-#pragma mark crop delegate
+#pragma mark  --
+#pragma mark  crop delegate
 - (void)didFinishCropping:(UIImage *)finalCropImage from:(WLCropViewController *)cropObj{
     [cropObj closeWithCompletion:^{
         //        ripple=nil;
