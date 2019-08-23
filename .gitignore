@@ -1,0 +1,11 @@
+*.mode1v3
+*.perspectivev3
+*.pbxuser
+.DS_Store
+build/
+
+# ios 工程文件
+*.xcodeproj
+*.xcworkspace
+*.framework
+*.a
