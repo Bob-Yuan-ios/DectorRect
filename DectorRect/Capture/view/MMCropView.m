@@ -237,8 +237,7 @@
 }
 
 #pragma  mark Condition For Valid Rect
-
--(double)checkForNeighbouringPoints:(int)index{
+- (double)checkForNeighbouringPoints:(int)index{
     NSArray *points=[self getPoints];
     CGPoint p1;
     CGPoint p2 ;
@@ -301,7 +300,8 @@
     return 0;
     
 }
--(void)swapTwoPoints{
+
+- (void)swapTwoPoints{
     
     
     if(k==2){
@@ -344,7 +344,7 @@
     
 }
 
--(void)checkangle:(int)index{
+- (void)checkangle:(int)index{
     NSArray *points=[self getPoints];
     CGPoint p1;
     CGPoint p2 ;
@@ -414,7 +414,7 @@
     
 }
 
--(BOOL)checkForHorizontalIntersection{
+- (BOOL)checkForHorizontalIntersection{
     
     
     CGLine line1 = CGLineMake(CGPointMake([[self.points objectAtIndex:0] frame].origin.x, [[self.points objectAtIndex:0] frame].origin.y), CGPointMake([[self.points objectAtIndex:1] frame].origin.x, [[self.points objectAtIndex:1] frame].origin.y));
@@ -435,7 +435,7 @@
     
 }
 
--(BOOL)checkForVerticalIntersection{
+- (BOOL)checkForVerticalIntersection{
     CGLine line3 = CGLineMake(CGPointMake([[self.points objectAtIndex:0] frame].origin.x, [[self.points objectAtIndex:0] frame].origin.y), CGPointMake([[self.points objectAtIndex:3] frame].origin.x, [[self.points objectAtIndex:3] frame].origin.y));
     
     CGLine line4 = CGLineMake(CGPointMake([[self.points objectAtIndex:2] frame].origin.x, [[self.points objectAtIndex:2] frame].origin.y), CGPointMake([[self.points objectAtIndex:1] frame].origin.x, [[self.points objectAtIndex:1] frame].origin.y));
@@ -453,7 +453,7 @@
 #pragma mark - Support methods
 
 
--(CGFloat)distanceBetween:(CGPoint)first And:(CGPoint)last{
+- (CGFloat)distanceBetween:(CGPoint)first And:(CGPoint)last{
     CGFloat xDist = (last.x - first.x);
     if(xDist<0) xDist=xDist*-1;
     CGFloat yDist = (last.y - first.y);
@@ -535,7 +535,7 @@
 
 //Corner Touch
 
--(void)cornerControlsMiddle{
+- (void)cornerControlsMiddle{
  
 }
 

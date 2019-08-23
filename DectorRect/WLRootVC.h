@@ -10,7 +10,9 @@
 
 @interface WLRootVC : WLBaseVC
 
-
+/**
+ 传入URL用于显示网页
+ */
 @property (nonatomic, copy) NSString *dectorRectUrl;
 
 @end

@@ -31,7 +31,7 @@
 @end
 
 @implementation WLCropViewController
--(BOOL)prefersStatusBarHidden{
+- (BOOL)prefersStatusBarHidden{
     return YES;
 }
 
@@ -52,7 +52,6 @@
     singlePan.maximumNumberOfTouches = 1;
     [_cropRect addGestureRecognizer:singlePan];
     
-    [self setCropUI];
     [self.view bringSubviewToFront:_cropRect];
     
     [self detectEdges];
@@ -148,42 +147,7 @@
     }
 }
 
--(void)setCropUI{
-    //Done
-//    self.dismissBut.tintColor=[UIColor whiteColor];
-    
-//    self.dismissBut.backgroundColor=[UIColor colorWithHexString:backgroundHex];
-//    self.dismissBut.layer.cornerRadius = self.dismissBut.frame.size.width / 2;
-//    self.dismissBut.clipsToBounds=YES;
-    
-//    [self.dismissBut setImage:[UIImage renderImage:@"Cancel"] forState:UIControlStateNormal];
-//    [self.leftRotateBut setImage:[UIImage renderImage:@"Left"] forState:UIControlStateNormal];
-//    [self.rightRotateBut setImage:[UIImage renderImage:@"Right"] forState:UIControlStateNormal];
-    
-//    self.cropBut.tintColor=[UIColor whiteColor];
-//    self.leftRotateBut.tintColor=[UIColor whiteColor];
-//    self.rightRotateBut.tintColor=[UIColor whiteColor];
-    
-//    self.cropBut.backgroundColor=[UIColor colorWithHexString:backgroundHex];
-//    self.cropBut.layer.cornerRadius = self.cropBut.frame.size.width / 2;
-//    self.cropBut.clipsToBounds=YES;
-    
-//    [self.cropBut setImage:[UIImage renderImage:@"Crop"] forState:UIControlStateNormal];
-}
-
-
-//- (void)adjustPossition
-//{
-//    CGAffineTransform saveState = _sourceImageView.transform;
-//    
-//    _sourceImageView.transform = CGAffineTransformIdentity;
-//    
-//    [_sourceImageView setFrameToFitImage];
-//    
-//    _sourceImageView.transform = saveState;
-//}
-
--(void)singlePan:(UIPanGestureRecognizer *)gesture{
+- (void)singlePan:(UIPanGestureRecognizer *)gesture{
     CGPoint posInStretch = [gesture locationInView:_cropRect];
     if(gesture.state==UIGestureRecognizerStateBegan){
         [_cropRect findPointAtLocation:posInStretch];
@@ -194,7 +158,6 @@
         [_cropRect checkangle:0];
     }
     [_cropRect moveActivePointToLocation:posInStretch];
-   
 }
 
 
@@ -573,97 +536,12 @@ cv::Mat debugSquares( std::vector<std::vector<cv::Point> > squares, cv::Mat imag
 //    NSLog(@"Size of Image %d",UIImageJPEGRepresentation(_sourceImageView.image, 0.5).length);
 }
 
-- (IBAction)rightRotateAction:(id)sender {
-    
-    
-//    CIImage *imgToRotate = [CIImage imageWithCGImage:_sourceImageView.image.CGImage];
-//    
-//    CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI_2);
-//    
-//    CIImage *rotatedImage = [imgToRotate imageByApplyingTransform:transform];
-//    
-//    CGRect extent = [rotatedImage extent];
-//    
-//    CIContext *context = [CIContext contextWithOptions:@{kCIContextUseSoftwareRenderer : @(NO)}];
-//    
-//    CGImageRef cgImage = [context createCGImage:rotatedImage fromRect:extent];
-//    
-//    _adjustedImage = [UIImage imageWithCGImage:cgImage];
-//    
-//    
-//    [UIView transitionWithView:_sourceImageView duration:0.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-//        _sourceImageView.image = _adjustedImage;
-//    } completion:^(BOOL finished) {
-//        
-//    }];
-//    
-//    
-//    CGRect cropFrame=CGRectMake(_sourceImageView.contentFrame.origin.x,_sourceImageView.contentFrame.origin.y+64,_sourceImageView.contentFrame.size.width,_sourceImageView.contentFrame.size.height);
-//    _cropRect.frame=cropFrame;
-//    
-//    [self detectEdges];
-//    CGImageRelease(cgImage);
-    
-    CGFloat value = (int)floorf((_rotateSlider + 1)*2) + 1;
-    
-    if(value>4){ value -= 4; }
-    _rotateSlider = value / 2 - 1;
-    [UIView animateWithDuration:0.5 animations:^{
-        [self rotateStateDidChange];
-    }];
-   
-
-}
-
-- (IBAction)leftRotateAction:(id)sender {
-    
-//    CIImage *imgToRotate = [CIImage imageWithCGImage:_sourceImageView.image.CGImage];
-//    
-//    CGAffineTransform transform = CGAffineTransformMakeRotation(-M_PI_2);
-//    
-//    CIImage *rotatedImage = [imgToRotate imageByApplyingTransform:transform];
-//    
-//    CGRect extent = [rotatedImage extent];
-//    
-//    CIContext *context =  [CIContext contextWithOptions:@{kCIContextUseSoftwareRenderer : @(NO)}];
-//    
-//    CGImageRef cgImage = [context createCGImage:rotatedImage fromRect:extent];
-//    
-//    _adjustedImage = [UIImage imageWithCGImage:cgImage];
-//    
-//    [UIView transitionWithView:_sourceImageView duration:0.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-//        _sourceImageView.image = _adjustedImage;
-//    } completion:^(BOOL finished) {
-//       
-//    }];
-//    
-//    CGRect cropFrame=CGRectMake(_sourceImageView.contentFrame.origin.x,_sourceImageView.contentFrame.origin.y+64,_sourceImageView.contentFrame.size.width,_sourceImageView.contentFrame.size.height);
-//    _cropRect.frame=cropFrame;
-//    
-//    
-//    [self detectEdges];
-//    CGImageRelease(cgImage);
-//
-    
-    CGFloat value = (int)floorf((_rotateSlider + 1)*2) - 1;
-    
-    if(value>4){ value -= 4; }
-    _rotateSlider = value / 2 - 1;
-    [UIView animateWithDuration:0.5 animations:^{
-        [self rotateStateDidChange];
-    }];
-}
-
-
 #pragma mark CLOSE
-
 - (void) closeWithCompletion:(void (^)(void))completion {
     
     // Need alpha 0.0 before dismissing otherwise sticks out on dismissal
-    
-    
     [self dismissViewControllerAnimated:YES completion:^{
-        
+
         completion();
         self->_sourceImageView=nil;
         self->_adjustedImage=nil;
@@ -760,7 +638,6 @@ cv::Mat debugSquares( std::vector<std::vector<cv::Point> > squares, cv::Mat imag
     }
     return _backBtn;
 }
-
 
 @end
 

@@ -38,7 +38,4 @@
     return imageScale;
 }
 
-
-
-
 @end

@@ -10,8 +10,7 @@
 #import "WLCameraCaptureController.h"
  
 #import "WLResultVC.h"
-#import "WLPhotoVC.h"
-
+ 
 #import <WebKit/WebKit.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 
@@ -29,28 +28,30 @@ MMCropDelegate
 
 @property (nonatomic, strong) WKWebView *wkView;
 
-@property(nonatomic,strong) UIImagePickerController *imagePicker; //声明全局的UIImagePickerController
+@property (nonatomic, strong) UIImagePickerController *imagePicker;
 
 @end
 
 @implementation WLRootVC
 
-
+#pragma mark --
+#pragma mark life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(callBackPhoto:) name:CJTP object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(callBackPhoto:)
+                                                 name:CJTP
+                                               object:nil];
 
     self.view.backgroundColor = [UIColor whiteColor];
     
-//    if (![_dectorRectUrl isKindOfClass:[NSString class]] || !_dectorRectUrl.length) {
-//        [self loadLocalHtml];
-//    }else{
-//        [self loadServiceHtml];
-//    }
-    
-    [self loadLocalHtml];
+    if (![_dectorRectUrl isKindOfClass:[NSString class]] || !_dectorRectUrl.length) {
+        [self loadLocalHtml];
+    }else{
+        [self loadServiceHtml];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -74,6 +75,14 @@ MMCropDelegate
     [_wkView.configuration.userContentController removeScriptMessageHandlerForName:XZ];
 }
 
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+
 - (void)loadLocalHtml{
     NSString *path = [[NSBundle mainBundle] pathForResource:@"index.html" ofType:nil];
     NSString *htmlString = [[NSString alloc]initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
@@ -84,13 +93,6 @@ MMCropDelegate
 - (void)loadServiceHtml{
     [self.wkView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_dectorRectUrl]]];
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 
 //通过接收JS传出消息的name进行捕捉的回调方法
@@ -124,6 +126,12 @@ MMCropDelegate
      }
 }
 
+
+/**
+ 把识别的图片回传到h5
+
+ @param notify 带图片信息的通知
+ */
 - (void)callBackPhoto:(NSNotification *)notify{
     
     UIImage *img = notify.object;
@@ -153,25 +161,14 @@ MMCropDelegate
         [self presentViewController:alert animated:YES completion:nil];
         
     }];
- 
-//    //以二进制数据的形式加载沙箱中的文件，
-//    NSString *imageSource = [NSString stringWithFormat:@"data:image/jpg;base64,%@",[data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed]];
-//
-//    NSString *strJs=[NSString stringWithFormat:@"document.images[0].src='%@'",imageSource];
-//    [_wkView evaluateJavaScript:strJs completionHandler:^(id _Nullable response, NSError * _Nullable error) {
-//        NSLog(@"webView response: %@ error: %@", response, error);
-//    }];
 }
 
-// 图片转成base64字符串需要先取出所有空格和换行符
-- (NSString *)removeSpaceAndNewline:(NSString *)str
-{
-    NSString *temp = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
-    temp = [temp stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    temp = [temp stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    return temp;
-}
 
+/**
+ 下载图片
+
+ @param imageUrl 图片的URL
+ */
 - (void)downloadImage:(NSString *)imageUrl{
     if (![imageUrl isKindOfClass:[NSString class]] || !imageUrl.length) {
         return;
@@ -201,17 +198,25 @@ MMCropDelegate
 }
 
 
+/**
+ 图片保存到相册的回调
+
+ @param image 图片
+ @param error 出错信息
+ @param contextInfo 上下文环境
+ */
 - (void)image:(UIImage*)image didFinishSavingWithError:(NSError*)error contextInfo:(void*)contextInfo {
     if(error) {
         //保存失败
-        
     }else{
         //保存成功
-        
     }
 }
 
 
+/**
+ 拍照
+ */
 - (void)takePhoto{
     NSUInteger sourceType = UIImagePickerControllerSourceTypeCamera;
     if([UIImagePickerController isSourceTypeAvailable:sourceType]) {
@@ -221,6 +226,10 @@ MMCropDelegate
     }
 }
 
+
+/**
+ 从相册选择图片
+ */
 - (void)choosePhotoLibrary{
     NSUInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     if([UIImagePickerController isSourceTypeAvailable:sourceType]) {
@@ -230,6 +239,12 @@ MMCropDelegate
     }
 }
 
+
+/**
+ 使用图片/相册
+
+ @param sourceType 资源类型
+ */
 - (void)dealPhoto:(NSUInteger)sourceType{
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.delegate = self; //设置代理
@@ -240,6 +255,11 @@ MMCropDelegate
 
 
 
+/**
+ 弹框提示：只带确定按钮
+
+ @param msg 提示的内容
+ */
 - (void)alertMsg:(NSString *)msg{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:msg preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -254,12 +274,6 @@ MMCropDelegate
     [picker dismissViewControllerAnimated:YES completion:^{
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage]; //通过key值获取到图片
         WLCropViewController *crop = [WLCropViewController new];
-        //[self.storyboard instantiateViewControllerWithIdentifier:@"crop"];
-//        crop.cropdelegate=self;
-//        ripple=[[RippleAnimation alloc] init];
-//        crop.transitioningDelegate=ripple;
-//        ripple.touchPoint=self.cameraBut.frame;
-//        
         crop.adjustedImage = image;
         crop.cropdelegate = self;
         [self presentViewController:crop animated:YES completion:nil];
@@ -267,7 +281,6 @@ MMCropDelegate
     
 }
 
-//当用户取消选择的时候，调用该方法
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
@@ -289,98 +302,16 @@ MMCropDelegate
     [self.navigationController pushViewController:resultVC animated:YES];
 }
 
-
-
 #pragma mark --
-#pragma mark 系统相机获取的图片大于2M会自动旋转
-- (UIImage *)fixOrientation:(UIImage *)aImage {
-    
-    // No-op if the orientation is already correct
-    if (aImage.imageOrientation == UIImageOrientationUp)
-        return aImage;
-    
-    // We need to calculate the proper transformation to make the image upright.
-    // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
-    CGAffineTransform transform = CGAffineTransformIdentity;
-    
-    switch (aImage.imageOrientation) {
-        case UIImageOrientationDown:
-        case UIImageOrientationDownMirrored:
-            transform = CGAffineTransformTranslate(transform, aImage.size.width, aImage.size.height);
-            transform = CGAffineTransformRotate(transform, M_PI);
-            break;
-            
-        case UIImageOrientationLeft:
-        case UIImageOrientationLeftMirrored:
-            transform = CGAffineTransformTranslate(transform, aImage.size.width, 0);
-            transform = CGAffineTransformRotate(transform, M_PI_2);
-            break;
-            
-        case UIImageOrientationRight:
-        case UIImageOrientationRightMirrored:
-            transform = CGAffineTransformTranslate(transform, 0, aImage.size.height);
-            transform = CGAffineTransformRotate(transform, -M_PI_2);
-            break;
-        default:
-            break;
-    }
-    
-    switch (aImage.imageOrientation) {
-        case UIImageOrientationUpMirrored:
-        case UIImageOrientationDownMirrored:
-            transform = CGAffineTransformTranslate(transform, aImage.size.width, 0);
-            transform = CGAffineTransformScale(transform, -1, 1);
-            break;
-            
-        case UIImageOrientationLeftMirrored:
-        case UIImageOrientationRightMirrored:
-            transform = CGAffineTransformTranslate(transform, aImage.size.height, 0);
-            transform = CGAffineTransformScale(transform, -1, 1);
-            break;
-        default:
-            break;
-    }
-    
-    // Now we draw the underlying CGImage into a new context, applying the transform
-    // calculated above.
-    CGContextRef ctx = CGBitmapContextCreate(NULL, aImage.size.width, aImage.size.height,
-                                             CGImageGetBitsPerComponent(aImage.CGImage), 0,
-                                             CGImageGetColorSpace(aImage.CGImage),
-                                             CGImageGetBitmapInfo(aImage.CGImage));
-    CGContextConcatCTM(ctx, transform);
-    switch (aImage.imageOrientation) {
-        case UIImageOrientationLeft:
-        case UIImageOrientationLeftMirrored:
-        case UIImageOrientationRight:
-        case UIImageOrientationRightMirrored:
-            // Grr...
-            CGContextDrawImage(ctx, CGRectMake(0,0,aImage.size.height,aImage.size.width), aImage.CGImage);
-            break;
-            
-        default:
-            CGContextDrawImage(ctx, CGRectMake(0,0,aImage.size.width,aImage.size.height), aImage.CGImage);
-            break;
-    }
-    
-    // And now we just create a new UIImage from the drawing context
-    CGImageRef cgimg = CGBitmapContextCreateImage(ctx);
-    UIImage *img = [UIImage imageWithCGImage:cgimg];
-    CGContextRelease(ctx);
-    CGImageRelease(cgimg);
-    return img;
-}
-
-
+#pragma mark lazy load
 - (WKWebView *)wkView{
     if (!_wkView) {
-        
         WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
         WKPreferences *preferences = [WKPreferences new];
         preferences.javaScriptCanOpenWindowsAutomatically = YES;
         preferences.minimumFontSize = 40.0;
         config.preferences = preferences;
 
-        
         //这个类主要用来做native与JavaScript的交互管理
         WKUserContentController *wkUController = [[WKUserContentController alloc] init];
         config.userContentController = wkUController;

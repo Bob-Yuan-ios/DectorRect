@@ -39,6 +39,7 @@
     }
     return self;
 }
+
 //getter
 - (UIScrollView *)scrollView{
     if (!_scrollView) {
@@ -55,6 +56,7 @@
     }
     return _scrollImgV;
 }
+
 - (UIScrollView *)scaleScrollView{
     if (!_scaleScrollView) {
         _scaleScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height)];
@@ -65,6 +67,7 @@
     }
     return _scaleScrollView;
 }
+
 - (UIImageView *)scaleImgV{
     if (!_scaleImgV) {
         _scaleImgV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height)];
@@ -73,6 +76,7 @@
     }
     return _scaleImgV;
 }
+
 - (void)layoutSubviews{
     [super layoutSubviews];
     CGSize imageSize = self.image.size;

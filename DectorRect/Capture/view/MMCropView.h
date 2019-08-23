@@ -41,8 +41,8 @@
 - (void)topLeftCornerToCGPoint: (CGPoint)point;
 
 
--(void)checkangle:(int)index;
--(void)findPointAtLocation:(CGPoint)location;
+- (void)checkangle:(int)index;
+- (void)findPointAtLocation:(CGPoint)location;
 - (void)moveActivePointToLocation:(CGPoint)locationPoint;
 
 @end
