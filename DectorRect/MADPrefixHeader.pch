@@ -9,11 +9,11 @@
 #ifndef WLPrefixHeader_pch
 #define WLPrefixHeader_pch
 
-#import "UIColor+WLColor.h"
 #import "WLMacroDefines.h"
 
-#import "YSYBaseVC.h"
+#import "WLBaseVC.h"
 
+#import "UIColor+HexRepresentation.h"
 
 #define SERVICEURL @"http://192.168.43.108:8081/login"
 

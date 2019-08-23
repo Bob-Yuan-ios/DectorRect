@@ -2,8 +2,8 @@
 //  UIColor+HexRepresentation.m
 //  MMCamScanner
 //
-//  Created by mukesh mandora on 12/06/15.
-//  Copyright (c) 2015 WLapps. All rights reserved.
+//  Created by mac on 12/06/15.
+//  Copyright (c) 2015 ailink. All rights reserved.
 //
 
 #import "UIColor+HexRepresentation.h"

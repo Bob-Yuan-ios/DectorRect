@@ -2,8 +2,8 @@
 //  CropViewController.m
 //  MMCamScanner
 //
-//  Created by mukesh mandora on 09/06/15.
-//  Copyright (c) 2015 WLapps. All rights reserved.
+//  Created by mac on 09/06/15.
+//  Copyright (c) 2015 ailink. All rights reserved.
 //
 
 #import "CropViewController.h"

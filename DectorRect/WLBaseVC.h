@@ -1,5 +1,5 @@
 //
-//  YSYBaseVC.h
+//  WLBaseVC.h
 //  DectorRect
 //
 //  Created by mac on 2019/8/21.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface YSYBaseVC : UIViewController
+@interface WLBaseVC : UIViewController
 
 @end
 

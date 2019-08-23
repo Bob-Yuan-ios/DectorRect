@@ -8,8 +8,7 @@
 
 #import "ViewController.h"
 #import "WLCameraCaptureController.h"
-#import "WLCropScaleController.h"
-
+ 
 #import "WLResultVC.h"
 #import "WLPhotoVC.h"
 
@@ -110,45 +109,12 @@ MMCropDelegate
          
          [self downloadImage:parameter];
      }else if([method isEqualToString:PZ]){
-//         //拍照
-//         WLPhotoVC *vc = [[WLPhotoVC alloc] init];
-//         vc.type = PHOTO_CAMERA;
-//
-//         __weak typeof(WLPhotoVC) *weakSelf = vc;
-//         vc.dealPhotoBlock = ^(UIImage * _Nonnull image) {
-//
-//             WLCropScaleController *cropVC = [[WLCropScaleController alloc] init];
-//             cropVC.cropImage = image;
-//
-//             __strong typeof(WLPhotoVC) *strongSelf = weakSelf;
-//             [strongSelf.navigationController popViewControllerAnimated:NO];
-//             [self.navigationController pushViewController:cropVC animated:YES];
-//         };
-//         [self.navigationController pushViewController:vc animated:YES];
-         
-//         [self takePhoto];
-         
          //拍照识别
          WLCameraCaptureController *vc = [[WLCameraCaptureController alloc] init];
          [self.navigationController pushViewController:vc animated:YES];
          
      }else if([method isEqualToString:XC]){
-//         //相册
-//         WLPhotoVC *vc = [[WLPhotoVC alloc] init];
-//         vc.type = PHOTO_LIBRARY;
-//
-//         __weak typeof(WLPhotoVC) *weakSelf = vc;
-//         vc.dealPhotoBlock = ^(UIImage * _Nonnull image) {
-//
-//             WLCropScaleController *cropVC = [[WLCropScaleController alloc] init];
-//             cropVC.cropImage = image;
-//
-//             __strong typeof(WLPhotoVC) *strongSelf = weakSelf;
-//             [strongSelf.navigationController popViewControllerAnimated:NO];
-//             [self.navigationController pushViewController:cropVC animated:YES];
-//         };
-//         [self.navigationController pushViewController:vc animated:YES];
-         
+         //相册
          [self choosePhotoLibrary];
      }
 }
@@ -282,11 +248,6 @@ MMCropDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [picker dismissViewControllerAnimated:YES completion:^{
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage]; //通过key值获取到图片
-      
-//        WLCropScaleController *cropVC = [[WLCropScaleController alloc] init];
-//        cropVC.cropImage = [self fixOrientation:image];
-//        [self.navigationController pushViewController:cropVC animated:YES];
-        
         CropViewController *crop = [CropViewController new];
         //[self.storyboard instantiateViewControllerWithIdentifier:@"crop"];
 //        crop.cropdelegate=self;

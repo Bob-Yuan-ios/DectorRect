@@ -2,7 +2,7 @@
 //  UIImageView+ContentFrame.m
 //  MMCamScanner
 //
-//  Created by mukesh mandora on 09/06/15.
+//  Created by mac on 09/06/15.
 //  Copyright (c) 2015. All rights reserved.
 //
 //  Credit: http://stackoverflow.com/questions/4711615/how-to-get-the-displayed-image-frame-from-uiimageview

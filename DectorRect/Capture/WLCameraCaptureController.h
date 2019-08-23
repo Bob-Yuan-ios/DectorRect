@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WLBaseVC.h"
 
-@interface WLCameraCaptureController : UIViewController
+@interface WLCameraCaptureController : WLBaseVC
 
 @end

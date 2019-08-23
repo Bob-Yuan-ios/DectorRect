@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WLResultVC : YSYBaseVC
+@interface WLResultVC : WLBaseVC
 
 
 @property (nonatomic, strong) UIImage *resultImg;

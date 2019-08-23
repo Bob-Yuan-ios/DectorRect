@@ -7,7 +7,7 @@
 //
 
 #import "WLCameraCaptureController.h"
-#import "WLCropScaleController.h"
+
 #import "WLSnapshotButton.h"
 #import "WLCameraCaptureView.h"
 #import "Masonry.h"
@@ -223,12 +223,6 @@ MMCropDelegate
             resultVC.resultImg = data;
             [strongSelf.nav pushViewController:resultVC animated:YES];
         }else{
-//            WLCropScaleController *vc = [[WLCropScaleController alloc] init];
-//            vc.borderDetectFeature = borderDetectFeature;
-//            vc.cropImage = data;
-//            [nav pushViewController:vc animated:YES];
-            
-            
             CropViewController *crop = [CropViewController new];
             //[self.storyboard instantiateViewControllerWithIdentifier:@"crop"];
             //        crop.cropdelegate=self;

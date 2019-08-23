@@ -16,7 +16,7 @@ typedef enum : NSUInteger {
 } PhotoType;
 
 
-@interface WLPhotoVC : YSYBaseVC
+@interface WLPhotoVC : WLBaseVC
 
 @property (nonatomic, assign) PhotoType type;
 

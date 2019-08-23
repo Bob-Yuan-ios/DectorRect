@@ -2,7 +2,7 @@
 //  UIImage+fixOrientation.m
 //  MMCamScanner
 //
-//  Created by mukesh mandora on 09/06/15.
+//  Created by mac on 09/06/15.
 //  Copyright (c) 2015. All rights reserved.
 //
 

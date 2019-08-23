@@ -15,6 +15,8 @@
 #define NAV_WIDTH    SCREEN_WIDTH
 #define NAV_HEIGHT   (44)
 
-#define kBaseColor   HEX_RGB(0x32343d)
+#define HEX_RGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+#define kBaseColor      HEX_RGB(0x32343d)
 
 #endif /* WLMacroDefines_h */

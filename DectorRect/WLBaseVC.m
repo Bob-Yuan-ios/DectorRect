@@ -1,18 +1,18 @@
 //
-//  YSYBaseVC.m
+//  WLBaseVC.m
 //  DectorRect
 //
 //  Created by mac on 2019/8/21.
 //  Copyright © 2019年 mac. All rights reserved.
 //
 
-#import "YSYBaseVC.h"
+#import "WLBaseVC.h"
 
-@interface YSYBaseVC ()
+@interface WLBaseVC ()
 
 @end
 
-@implementation YSYBaseVC
+@implementation WLBaseVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];

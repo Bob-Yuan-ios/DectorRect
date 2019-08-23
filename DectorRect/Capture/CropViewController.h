@@ -2,14 +2,16 @@
 //  CropViewController.h
 //  MMCamScanner
 //
-//  Created by mukesh mandora on 09/06/15.
-//  Copyright (c) 2015 WLapps. All rights reserved.
+//  Created by mac on 09/06/15.
+//  Copyright (c) 2015 ailink. All rights reserved.
 //
 
 
 #import <UIKit/UIKit.h>
 #import "UIImage+fixOrientation.h"
 #import "UIImageView+ContentFrame.h"
+
+#import "WLBaseVC.h"
 
 //#import "ProgressHUD.h"
 @class CropViewController;
@@ -18,7 +20,7 @@
 -(void)didFinishCropping:(UIImage *)finalCropImage from:(CropViewController *)cropObj;
 
 @end
-@interface CropViewController : UIViewController{
+@interface CropViewController : WLBaseVC{
     CGFloat _rotateSlider;
     CGRect _initialRect,final_Rect;
 }

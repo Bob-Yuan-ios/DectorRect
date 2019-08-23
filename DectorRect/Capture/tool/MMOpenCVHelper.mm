@@ -2,8 +2,8 @@
 //  MMOpenCVHelper.m
 //  MMCamScanner
 //
-//  Created by mukesh mandora on 09/06/15.
-//  Copyright (c) 2015 apps. All rights reserved.
+//  Created by mac on 19/06/19.
+//  Copyright (c) 2019 ailink. All rights reserved.
 //
 
 #import "MMOpenCVHelper.h"
