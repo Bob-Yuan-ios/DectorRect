@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "WLRootVC.h"
+
 
 @interface AppDelegate ()
 
@@ -17,7 +19,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    NSLog(@"fffff");
+
+    _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [_window setBackgroundColor:[UIColor whiteColor]];
+    [_window makeKeyAndVisible];
+    
+    WLRootVC *vc = [[WLRootVC alloc] init];
+    vc.dectorRectUrl = SERVICEURL;
+    UINavigationController *rootVC = [[UINavigationController alloc] initWithRootViewController:vc];
+    [_window setRootViewController:rootVC];
+    
     return YES;
 }
 

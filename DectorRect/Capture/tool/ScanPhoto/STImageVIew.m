@@ -91,7 +91,7 @@
 -(void)scaleImageViewAction:(UIPinchGestureRecognizer*)sender {
     
     CGFloat scale = sender.scale;//得到的是当前手势放大倍数
-    NSLog(@"--------%f",scale);
+//    NSLog(@"--------%f",scale);
     CGFloat shouldScale = _lastScale + (scale - 1);//我们需要知道的是当前手势相收缩率对于刚才手势的相对收缩 scale - 1，然后加上最后一次收缩率，为当前要展示的收缩率
     [self setScaleImageWithScale:shouldScale];
     sender.scale = 1.0;//图片大小改变后设置手势scale为1

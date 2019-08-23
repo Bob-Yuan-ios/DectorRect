@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : WLBaseVC
+@interface WLRootVC : WLBaseVC
 
+
+@property (nonatomic, copy) NSString *dectorRectUrl;
 
 @end
 

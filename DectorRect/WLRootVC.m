@@ -6,7 +6,7 @@
 //  Copyright © 2017年 mac. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "WLRootVC.h"
 #import "WLCameraCaptureController.h"
  
 #import "WLResultVC.h"
@@ -17,7 +17,7 @@
 
 #import "WLCropViewController.h"
 
-@interface ViewController ()
+@interface WLRootVC ()
 <
 WKUIDelegate,
 WKNavigationDelegate,
@@ -33,7 +33,7 @@ MMCropDelegate
 
 @end
 
-@implementation ViewController
+@implementation WLRootVC
 
 
 - (void)viewDidLoad {
@@ -44,9 +44,13 @@ MMCropDelegate
 
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self loadLocalHtml];
+//    if (![_dectorRectUrl isKindOfClass:[NSString class]] || !_dectorRectUrl.length) {
+//        [self loadLocalHtml];
+//    }else{
+//        [self loadServiceHtml];
+//    }
     
-//    [self loadServiceHtml];
+    [self loadLocalHtml];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -78,8 +82,9 @@ MMCropDelegate
 }
 
 - (void)loadServiceHtml{
-        [self.wkView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:SERVICEURL]]];
+    [self.wkView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_dectorRectUrl]]];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

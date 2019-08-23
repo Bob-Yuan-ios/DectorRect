@@ -16,11 +16,10 @@
 #import "Masonry.h"
 
 
-
 @interface WLCropViewController (){
     UIScrollView *scrollView;
-   
 }
+
 @property (strong, nonatomic) MMCropView *cropRect;
 
 // 完成按钮
@@ -35,7 +34,6 @@
 -(BOOL)prefersStatusBarHidden{
     return YES;
 }
-
 
 - (void)viewDidLoad{
 //    _rotateSlider=1;
@@ -144,7 +142,6 @@
             _cropRect.hidden=NO;
             [UIView animateWithDuration:0.5 animations:^{
                 self->scrollView.frame=CGRectMake(0, -64, self.view.bounds.size.width, 64);
-                
             }];
             break;
 
@@ -153,27 +150,25 @@
 
 -(void)setCropUI{
     //Done
-    self.dismissBut.tintColor=[UIColor whiteColor];
+//    self.dismissBut.tintColor=[UIColor whiteColor];
+    
 //    self.dismissBut.backgroundColor=[UIColor colorWithHexString:backgroundHex];
 //    self.dismissBut.layer.cornerRadius = self.dismissBut.frame.size.width / 2;
 //    self.dismissBut.clipsToBounds=YES;
     
-    [self.dismissBut setImage:[UIImage renderImage:@"Cancel"] forState:UIControlStateNormal];
-    [self.leftRotateBut setImage:[UIImage renderImage:@"Left"] forState:UIControlStateNormal];
-    [self.rightRotateBut setImage:[UIImage renderImage:@"Right"] forState:UIControlStateNormal];
+//    [self.dismissBut setImage:[UIImage renderImage:@"Cancel"] forState:UIControlStateNormal];
+//    [self.leftRotateBut setImage:[UIImage renderImage:@"Left"] forState:UIControlStateNormal];
+//    [self.rightRotateBut setImage:[UIImage renderImage:@"Right"] forState:UIControlStateNormal];
     
+//    self.cropBut.tintColor=[UIColor whiteColor];
+//    self.leftRotateBut.tintColor=[UIColor whiteColor];
+//    self.rightRotateBut.tintColor=[UIColor whiteColor];
     
-    self.cropBut.tintColor=[UIColor whiteColor];
-    self.leftRotateBut.tintColor=[UIColor whiteColor];
-    self.rightRotateBut.tintColor=[UIColor whiteColor];
 //    self.cropBut.backgroundColor=[UIColor colorWithHexString:backgroundHex];
 //    self.cropBut.layer.cornerRadius = self.cropBut.frame.size.width / 2;
 //    self.cropBut.clipsToBounds=YES;
     
-    [self.cropBut setImage:[UIImage renderImage:@"Crop"] forState:UIControlStateNormal];
-    
-   
-
+//    [self.cropBut setImage:[UIImage renderImage:@"Crop"] forState:UIControlStateNormal];
 }
 
 
@@ -290,18 +285,12 @@
         [_cropRect bottomLeftCornerToCGPoint:[(NSValue *)[sortedPoints objectForKey:@"3"] CGPointValue]];
 
         NSLog(@"%@ Sorted Points",sortedPoints);
-       
-        
-
     }
     else{
  
     }
     
     original.release();
-    
-    
-   
 }
 
 
