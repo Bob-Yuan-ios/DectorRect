@@ -8,9 +8,6 @@
 
 #import "WLResultVC.h"
 #import "Masonry.h"
-
-#import <SDWebImage/UIImageView+WebCache.h>
-
 #import "STPhotoBroswer.h"
 
 @interface WLResultVC ()
@@ -37,32 +34,12 @@
     if (_resultImg) {
         self.showResult.image = _resultImg;
 
-    }else if([_downUrl isKindOfClass:[NSString class]] && _downUrl.length){
-        [self.showResult sd_setImageWithURL:[NSURL URLWithString:_downUrl]
-                           placeholderImage:[UIImage imageNamed:@"default.png"]
-                                  completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-                                      UIImageWriteToSavedPhotosAlbum(image,self,@selector(image:didFinishSavingWithError:contextInfo:),nil);
-                                      
-                                  }];
     }
-    
  
     [self.view addSubview:self.backBtn];
     [self.view addSubview:self.finishBtn];
 }
-
-
-- (void)image:(UIImage*)image didFinishSavingWithError:(NSError*)error contextInfo:(void*)contextInfo {
-    if(error) {
-        //保存失败
-        
-    }else{
-        //保存成功
-        
-    }
-}
-
-
+ 
 - (void)backAction{
     [self.navigationController popViewControllerAnimated:YES];
 }
