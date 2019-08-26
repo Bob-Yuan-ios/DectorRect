@@ -135,14 +135,14 @@
     [_backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.mas_equalTo(20);
-        make.bottom.mas_equalTo(-40);
+        make.bottom.mas_equalTo(-30);
         make.size.mas_equalTo(CGSizeMake(65, 35));
     }];
     
     [_finishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.right.mas_equalTo(-20);
-        make.bottom.mas_equalTo(-40);
+        make.bottom.mas_equalTo(-30);
         make.size.mas_equalTo(CGSizeMake(65, 35));
     }];
     [super updateViewConstraints];

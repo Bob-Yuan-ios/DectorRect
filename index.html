@@ -25,9 +25,29 @@
 		}
     
         //保存图片
-        var getPhoto = function(){
-
+        var getPhoto = function(response){
+            //因为response是JSON对象，所以直接通过key(img)获取value
+            this.imgUrl = response.img;
+            var name = response.name;
+            var dataURL = response.img;
+            var imgData = dataURL.replace("data:image/jpeg;base64,", "");
+            var base64Str = imgData;
+            var fileType = "image/jpeg";
+            var zlblob1 = function (base64Str, fileType) {
+                    var base64 = window.atob(base64Str);
+                    var len = base64.length;
+                    var buff = new ArrayBuffer(len);
+                    var uarr = new Uint8Array(buff);
+                    for (var i = 0; i < len; i++) {
+                        uarr[i] = base64.charCodeAt(i);
+                }
+                    
+                    
+                    var blob = new Blob([buff], {type: fileType});
+                    console.log(blob);
+                }
         }
+    
     </script>
     <style>
 

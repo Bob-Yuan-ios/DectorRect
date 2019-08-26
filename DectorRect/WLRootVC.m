@@ -132,21 +132,22 @@ MMCropDelegate
 - (void)callBackPhoto:(NSNotification *)notify{
     
     UIImage *img = notify.object;
-    NSData *data = UIImageJPEGRepresentation(img, 0.5f);
+    NSData *data = UIImageJPEGRepresentation(img, .1f);
     
     NSString *imgCon = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-    NSString *imgStr = [NSString stringWithFormat:@"data:image/jpg;base64,%@",imgCon];
+    NSString *imgStr = [NSString stringWithFormat:@"data:image/jpeg;base64,%@",imgCon];
     
-    NSString *imgName = [NSString stringWithFormat:@"%.lf.jpg",[[NSDate date] timeIntervalSince1970]];
+    NSString *imgName = [NSString stringWithFormat:@"%.lf.jpeg",[[NSDate date] timeIntervalSince1970]];
     
     NSDictionary *dic = @{@"img":imgStr,@"name":imgName};
     
     NSError *err;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&err];
-    
-    NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 
     NSString *jsStr = [NSString stringWithFormat:@"javascript:%@(%@)",SC,jsonString];
+    
     [self.wkView evaluateJavaScript:jsStr completionHandler:^(id _Nullable result, NSError * _Nullable error) {
         
         NSString *errMsg = error.userInfo.description;
@@ -171,21 +172,16 @@ MMCropDelegate
         return;
     }
     
-    //通过一个异步执行的全局并发队列，开启了一个子线程进行图片下载
     dispatch_async(dispatch_get_global_queue(0, 0),^{
-        //子线程下载图片
         NSURL *url = [NSURL URLWithString:imageUrl];
         NSData *data = [NSData dataWithContentsOfURL:url];
-        //将网络数据初始化为UIImage对象
         UIImage *image = [UIImage imageWithData:data];
         if(image!=nil){
-            //回到主线程设置图片，更新UI界面
             dispatch_async(dispatch_get_main_queue(),^{
                 UIImageWriteToSavedPhotosAlbum(image,
                                                self,
                                                @selector(image:didFinishSavingWithError:contextInfo:),
                                                nil);
-                
             });
         }
         else{

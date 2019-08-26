@@ -23,9 +23,9 @@
     [_window setBackgroundColor:[UIColor whiteColor]];
     [_window makeKeyAndVisible];
     
-    
+    NSLog(@"[[UIApplication sharedApplication] statusBarFrame].size.height:%lf",[[UIApplication sharedApplication] statusBarFrame].size.height);
     WLRootVC *vc = [[WLRootVC alloc] init];
-    vc.destionUrl = SERVICEURL;
+    vc.destionUrl = nil;
 
     UINavigationController *rootVC = [[UINavigationController alloc] initWithRootViewController:vc];
     [_window setRootViewController:rootVC];

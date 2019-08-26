@@ -186,8 +186,7 @@
         for (int i = 0; i < 4; i++)
         {
             NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  [NSValue valueWithCGPoint:CGPointMake(largest_square[i].x, largest_square[i].y)], @"point" ,
-                                  [NSNumber numberWithInt:(largest_square[i].x + largest_square[i].y)], @"value", nil];
+                                  [NSValue valueWithCGPoint:CGPointMake(largest_square[i].x, largest_square[i].y)], @"point" , [NSNumber numberWithInt:(largest_square[i].x + largest_square[i].y)], @"value", nil];
             [points addObject:dict];
         }
         
@@ -607,7 +606,7 @@ cv::Mat debugSquares( std::vector<std::vector<cv::Point> > squares, cv::Mat imag
         [_finishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             
             make.right.mas_equalTo(-20);
-            make.bottom.mas_equalTo(-40);
+            make.bottom.mas_equalTo(-30);
             make.size.mas_equalTo(CGSizeMake(65, 35));
         }];
     }
@@ -633,7 +632,7 @@ cv::Mat debugSquares( std::vector<std::vector<cv::Point> > squares, cv::Mat imag
         [_backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             
             make.left.mas_equalTo(20);
-            make.bottom.mas_equalTo(-40);
+            make.bottom.mas_equalTo(-30);
             make.size.mas_equalTo(CGSizeMake(65, 35));
         }];
         

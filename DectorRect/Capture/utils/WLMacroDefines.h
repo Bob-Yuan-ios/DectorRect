@@ -12,8 +12,8 @@
 #define kSCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define kSCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 
-#define kSTATUS_H    ([[UIApplication sharedApplication] statusBarFrame].size.height > 20 ? 44 : 20) // 适配刘海屏状态栏
-#define kBOTTOM_H    ([[UIApplication sharedApplication] statusBarFrame].size.height > 20 ? 34 : 0)  // 适配刘海屏底部多出来的高度
+#define kSTATUS_H    ((int)[[UIApplication sharedApplication] statusBarFrame].size.height%20 ? 44 : 20) // 适配刘海屏状态栏
+#define kBOTTOM_H    ((int)[[UIApplication sharedApplication] statusBarFrame].size.height%20 ? 34 : 0)  // 适配刘海屏底部多出来的高度
 
 #define kNAV_HEIGHT   (44 + kSTATUS_H)
 

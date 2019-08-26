@@ -13,7 +13,7 @@
 
 #import "UIColor+HexRepresentation.h"
 
-#define SERVICEURL @"" //http://192.168.43.108:8081/login
+#define SERVICEURL @"http://192.168.43.108:8084"
 
 #define XZ  @"downloadPhoto"
 #define SB  @"gotoDiscriminate"
