@@ -310,7 +310,7 @@ MMCropDelegate
         WKUserContentController *wkUController = [[WKUserContentController alloc] init];
         config.userContentController = wkUController;
         
-        CGRect frame = CGRectMake(0, kNAV_HEIGHT, kSCREEN_WIDTH, kSCREEN_HEIGHT - kNAV_HEIGHT - kBOTTOM_H);
+        CGRect frame = CGRectMake(0, 0, kSCREEN_WIDTH, kSCREEN_HEIGHT - kBOTTOM_H);
         _wkView = [[WKWebView alloc] initWithFrame:frame configuration:config];
         _wkView.UIDelegate = self;
         _wkView.navigationDelegate = self;

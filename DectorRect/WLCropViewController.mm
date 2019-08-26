@@ -17,9 +17,9 @@
 
 
 @interface WLCropViewController ()
-//{
-//    UIScrollView *scrollView;
-//}
+<
+UINavigationControllerDelegate
+>
 
 @property (strong, nonatomic) MMCropView *cropRect;
 
@@ -36,8 +36,27 @@
     return YES;
 }
 
+#pragma mark - UINavigationBarDelegate
+- (void)navigationController:(UINavigationController *)navigationController
+      willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+    {
+        if (viewController == self) {
+            [self.navigationController setNavigationBarHidden:YES animated:NO];
+            [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        }else
+        {
+            [self.navigationController setNavigationBarHidden:NO animated:NO];
+            [[UIApplication sharedApplication] setStatusBarHidden:NO];
+        }
+    }
+    
+- (void)viewDidLoad{
+    [super viewDidLoad];
+    
+    self.navigationController.delegate = self;
+}
  
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [self initCropFrame];
  

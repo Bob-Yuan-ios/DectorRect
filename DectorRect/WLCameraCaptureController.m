@@ -105,7 +105,8 @@ MMCropDelegate
 }
 
 #pragma mark - UINavigationBarDelegate
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+- (void)navigationController:(UINavigationController *)navigationController
+      willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if (viewController == self) {
         [self.navigationController setNavigationBarHidden:YES animated:NO];
@@ -236,7 +237,7 @@ MMCropDelegate
             //        ripple=[[RippleAnimation alloc] init];
             //        crop.transitioningDelegate=ripple;
             //        ripple.touchPoint=self.cameraBut.frame;
-            //
+
             crop.adjustedImage = data;
             crop.cropdelegate = self;
             [strongSelf.nav presentViewController:crop animated:YES completion:nil];

@@ -9,9 +9,14 @@
 #import "WLResultVC.h"
 #import "Masonry.h"
 #import "STPhotoBroswer.h"
+#import "UIImageView+ContentFrame.h"
+
 
 @interface WLResultVC ()
-
+<
+UINavigationControllerDelegate
+>
+    
 @property (nonatomic, strong) UIImageView *showResult;
 
 // 完成按钮
@@ -25,21 +30,42 @@
 
 @implementation WLResultVC
 
+#pragma mark - UINavigationBarDelegate
+- (void)navigationController:(UINavigationController *)navigationController
+      willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+    {
+        if (viewController == self) {
+            [self.navigationController setNavigationBarHidden:YES animated:NO];
+            [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        }else
+        {
+            [self.navigationController setNavigationBarHidden:NO animated:NO];
+            [[UIApplication sharedApplication] setStatusBarHidden:NO];
+        }
+    }
+    
+    
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
  
     self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationController.delegate = self;
     
     if (_resultImg) {
         self.showResult.image = _resultImg;
-
     }
- 
+    
     [self.view addSubview:self.backBtn];
     [self.view addSubview:self.finishBtn];
 }
  
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    NSLog(@"contentSize is:%@",NSStringFromCGSize(self.showResult.contentSize));
+    NSLog(@"imageSize is:%@",NSStringFromCGSize(_resultImg.size));
+}
+    
 - (void)backAction{
     [self.navigationController popViewControllerAnimated:YES];
 }

@@ -179,23 +179,19 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     if (context)
     {
-        
-        // [UIColor colorWithRed:0.52f green:0.65f blue:0.80f alpha:1.00f];
-        
-//        CGContextSetRGBFillColor(context, 0.0f, 0.0f, 0.0f, 0.7f);
         CGContextSetRGBFillColor(context, 0.0f, 0.0f, 0.0f, 0.0f);
-        if([self checkForNeighbouringPoints:currentIndex]>=0 ){
-            frameMoved=YES;
-             CGContextSetRGBStrokeColor(context, 0.1294f, 0.588f, 0.9529f, 1.0f);
-            
+        if([self checkForNeighbouringPoints:currentIndex]>=0){
+            frameMoved = YES;
+//             CGContextSetRGBStrokeColor(context, 0.1294f, 0.588f, 0.9529f, 1.0f);
+        }else{
+            frameMoved = NO;
+//             CGContextSetRGBStrokeColor(context, 0.9568f, 0.262f, 0.211f, 1.0f);
         }
-        else{
-            frameMoved=NO;
-             CGContextSetRGBStrokeColor(context, 0.9568f, 0.262f, 0.211f, 1.0f);
-           
-        }
+
+        CGContextSetRGBStrokeColor(context, 0.f, 0.f, 1.f, 1.0f);
+
         CGContextSetLineJoin(context, kCGLineJoinRound);
-        CGContextSetLineWidth(context, 4.0f);
+        CGContextSetLineWidth(context, 2.0f);
         
         CGRect boundingRect = CGContextGetClipBoundingBox(context);
         CGContextAddRect(context, boundingRect);
@@ -218,11 +214,7 @@
         CGContextAddPath(context, pathRef);
         CGContextFillPath(context);
         
-        
-        
         CGContextSetBlendMode(context, kCGBlendModeNormal);
-        
-        
         CGPathRelease(pathRef);
     }
 }
