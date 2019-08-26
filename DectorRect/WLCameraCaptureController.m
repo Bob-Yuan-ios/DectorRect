@@ -24,18 +24,25 @@ MMCropDelegate
 
 // 导航栏
 @property (nonatomic, strong) UIView *navToolBar;
+    
 // 返回按钮
 @property (nonatomic,strong) UIButton *leftBtn;
+    
 // 导航栏标题
 @property (nonatomic,strong) UILabel *navTitleLabel;
+    
 // 闪光灯按钮
 @property (nonatomic,strong) UIButton *flashLigthToggle;
+    
 // 拍照按钮
 @property (nonatomic, strong) WLSnapshotButton *snapshotBtn;
+    
 // 拍照视图
 @property (nonatomic, strong) WLCameraCaptureView *captureCameraView;
+    
 // 聚焦指示器
 @property (nonatomic, strong) UIView *focusIndicator;
+    
 // 单击手势
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 
@@ -185,7 +192,7 @@ MMCropDelegate
 - (WLCameraCaptureView *)captureCameraView
 {
     if (!_captureCameraView) {
-        _captureCameraView = [[WLCameraCaptureView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 300)];
+        _captureCameraView = [[WLCameraCaptureView alloc] initWithFrame:CGRectMake(0, 0, kSCREEN_WIDTH, 300)];
         //打开边缘检测
         [_captureCameraView setEnableBorderDetection:YES];
         _captureCameraView.backgroundColor = kBlackColor;
@@ -312,9 +319,9 @@ MMCropDelegate
     [super updateViewConstraints];
     
     [_navToolBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.left.right.mas_equalTo(0);
-        make.height.mas_equalTo(NAV_HEIGHT + 10);
+        make.top.mas_equalTo(kSTATUS_H);
+        make.left.right.mas_equalTo(0);
+        make.height.mas_equalTo(44 + 10);
     }];
     
     [_leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -338,7 +345,7 @@ MMCropDelegate
     [_snapshotBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.size.mas_equalTo(CGSizeMake(65, 65));
-        make.bottom.mas_equalTo(-25);
+        make.bottom.mas_equalTo(-25 - kBOTTOM_H);
         make.centerX.mas_equalTo(self.view);
     }];
     
@@ -346,7 +353,7 @@ MMCropDelegate
         
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(self->_navToolBar.mas_bottom);
-        make.bottom.mas_equalTo(0);
+        make.bottom.mas_equalTo(0 - kBOTTOM_H);
     }];
 }
 @end

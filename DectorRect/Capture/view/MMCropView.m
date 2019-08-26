@@ -126,28 +126,19 @@
 
 - (void)setPoints
 {
-//    a = CGPointMake(0 + 15, self.bounds.size.height - 15);
-//    b = CGPointMake(self.bounds.size.width - 15, self.bounds.size.height - 15);
-//    c = CGPointMake(self.bounds.size.width - 15, 0 + 15);
-//    d = CGPointMake(0 + 15, 0 + 15);
-    a = CGPointMake(0 + 0, self.bounds.size.height - 0);
-    b = CGPointMake(self.bounds.size.width - 0, self.bounds.size.height - 0);
-    c = CGPointMake(self.bounds.size.width - 0, 0 + 0);
-    d = CGPointMake(0 + 0, 0 + 0);
+    CGFloat offset = 40;
+    a = CGPointMake(0 + offset, self.bounds.size.height - offset);
+    b = CGPointMake(self.bounds.size.width - offset, self.bounds.size.height - offset);
+    c = CGPointMake(self.bounds.size.width - offset, 0 + offset);
+    d = CGPointMake(0 + offset, 0 + offset);
 }
 
 - (void)setButtons
 {
-   
     [_pointD setFrame:CGRectMake(d.x - kCropButtonSize / 2, d.y - kCropButtonSize / 2, kCropButtonSize, kCropButtonSize)];
     [_pointC setFrame:CGRectMake(c.x - kCropButtonSize / 2,c.y - kCropButtonSize / 2, kCropButtonSize, kCropButtonSize)];
     [_pointB setFrame:CGRectMake(b.x - kCropButtonSize / 2, b.y - kCropButtonSize / 2, kCropButtonSize, kCropButtonSize)];
     [_pointA setFrame:CGRectMake(a.x - kCropButtonSize / 2, a.y - kCropButtonSize / 2, kCropButtonSize, kCropButtonSize)];
-    
-//    [_pointE setFrame:CGRectMake(e.x - kCropButtonSize / 2, e.y - kCropButtonSize / 2, kCropButtonSize, kCropButtonSize)];
-//    [_pointF setFrame:CGRectMake(f.x - kCropButtonSize / 2, f.y - kCropButtonSize / 2, kCropButtonSize, kCropButtonSize)];
-//    [_pointG setFrame:CGRectMake(g.x - kCropButtonSize / 2, g.y - kCropButtonSize / 2, kCropButtonSize, kCropButtonSize)];
-//    [_pointH setFrame:CGRectMake(h.x - kCropButtonSize / 2, h.y - kCropButtonSize / 2, kCropButtonSize, kCropButtonSize)];
 }
 
 - (void)bottomLeftCornerToCGPoint: (CGPoint)point

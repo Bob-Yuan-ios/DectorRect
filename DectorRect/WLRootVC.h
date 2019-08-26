@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WLRootVC : WLBaseVC
+@interface WLRootVC : UIViewController
 
 /**
  传入URL用于显示网页
  */
-@property (nonatomic, copy) NSString *dectorRectUrl;
+@property (nonatomic, copy) NSString *destionUrl;
 
 @end
 

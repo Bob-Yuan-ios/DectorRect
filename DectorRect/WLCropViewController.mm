@@ -16,9 +16,10 @@
 #import "Masonry.h"
 
 
-@interface WLCropViewController (){
-    UIScrollView *scrollView;
-}
+@interface WLCropViewController ()
+//{
+//    UIScrollView *scrollView;
+//}
 
 @property (strong, nonatomic) MMCropView *cropRect;
 
@@ -35,17 +36,14 @@
     return YES;
 }
 
-- (void)viewDidLoad{
-//    _rotateSlider=1;
-}
-
+ 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [self initCropFrame];
-//    [self adjustPossition];
-    
-    CGRect cropFrame=CGRectMake(_sourceImageView.contentFrame.origin.x,_sourceImageView.contentFrame.origin.y+64,_sourceImageView.contentFrame.size.width,_sourceImageView.contentFrame.size.height);
-    _cropRect= [[MMCropView alloc] initWithFrame:cropFrame];
+ 
+    CGRect cropFrame = _sourceImageView.contentFrame;
+    cropFrame.origin.y += 64;
+    _cropRect = [[MMCropView alloc] initWithFrame:cropFrame];
     [self.view addSubview:_cropRect];
     
     UIPanGestureRecognizer *singlePan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(singlePan:)];
@@ -56,31 +54,32 @@
     
     [self detectEdges];
     _initialRect = self.sourceImageView.frame;
-    final_Rect =self.sourceImageView.frame;
+    final_Rect = self.sourceImageView.frame;
     
     [self backBtn];
     [self finishBtn];
 }
 
 -(void)initCropFrame{
-    _sourceImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-kCameraToolBarHeight-64)];
+    _sourceImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,
+                                                                     kNAV_HEIGHT,
+                                                                     kSCREEN_WIDTH,
+                                                                     kSCREEN_HEIGHT-kCameraToolBarHeight-kNAV_HEIGHT-kBOTTOM_H)];
     [_sourceImageView setContentMode:UIViewContentModeScaleAspectFit];
     [_sourceImageView setImage:_adjustedImage];
-    //     [_sourceImageView setImage:[UIImage imageNamed:@"testtwo.jpg"]];
+
     _sourceImageView.clipsToBounds=YES;
    
     
     [self.view addSubview:_sourceImageView];
     
-    //    NSLog(@"%f %f",_sourceImageView.contentFrame.size.height,_sourceImageView.contentFrame.size.height);
-    
-    
-       [self buttonsScroll];
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        self->scrollView.frame=CGRectMake(0, -64, self.view.bounds.size.width, 64);
-    }];
-
+//    NSLog(@"%f %f",_sourceImageView.contentFrame.size.height,_sourceImageView.contentFrame.size.height);
+//
+//    [self buttonsScroll];
+//
+//    [UIView animateWithDuration:0.5 animations:^{
+//        self->scrollView.frame=CGRectMake(0, -kNAV_HEIGHT, kSCREEN_WIDTH, kNAV_HEIGHT);
+//    }];
 }
 
 
@@ -122,33 +121,34 @@
 
 
 -(void)scrolllButAction:(UIButton *)sender{
-    switch (sender.tag) {
-        case 1:
-            _sourceImageView.image=_cropImage;
-            break;
-        case 2:
-             _sourceImageView.image=[self grayImage:_cropImage];
-            break;
-        case 3:
-            _sourceImageView.image= [self blackandWhite:_cropImage];
-            break;
-        case 4:
-            _sourceImageView.image= [self magicColor:_cropImage];
-            break;
-            
-        case 5:
-            _sourceImageView.image= _adjustedImage;
-            _cropRect.hidden=NO;
-            [UIView animateWithDuration:0.5 animations:^{
-                self->scrollView.frame=CGRectMake(0, -64, self.view.bounds.size.width, 64);
-            }];
-            break;
-
-    }
+//    switch (sender.tag) {
+//        case 1:
+//            _sourceImageView.image=_cropImage;
+//            break;
+//        case 2:
+//             _sourceImageView.image=[self grayImage:_cropImage];
+//            break;
+//        case 3:
+//            _sourceImageView.image= [self blackandWhite:_cropImage];
+//            break;
+//        case 4:
+//            _sourceImageView.image= [self magicColor:_cropImage];
+//            break;
+//
+//        case 5:
+//            _sourceImageView.image= _adjustedImage;
+//            _cropRect.hidden=NO;
+//            [UIView animateWithDuration:0.5 animations:^{
+//                self->scrollView.frame=CGRectMake(0, -64, self.view.bounds.size.width, 64);
+//            }];
+//            break;
+//
+//    }
 }
 
 - (void)singlePan:(UIPanGestureRecognizer *)gesture{
     CGPoint posInStretch = [gesture locationInView:_cropRect];
+
     if(gesture.state==UIGestureRecognizerStateBegan){
         [_cropRect findPointAtLocation:posInStretch];
     }
@@ -161,6 +161,7 @@
 }
 
 
+#pragma mark --
 #pragma mark OpenCV
 - (void)detectEdges
 {
@@ -184,7 +185,9 @@
         
         for (int i = 0; i < 4; i++)
         {
-            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSValue valueWithCGPoint:CGPointMake(largest_square[i].x, largest_square[i].y)], @"point" , [NSNumber numberWithInt:(largest_square[i].x + largest_square[i].y)], @"value", nil];
+            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  [NSValue valueWithCGPoint:CGPointMake(largest_square[i].x, largest_square[i].y)], @"point" ,
+                                  [NSNumber numberWithInt:(largest_square[i].x + largest_square[i].y)], @"value", nil];
             [points addObject:dict];
         }
         
@@ -528,9 +531,9 @@ cv::Mat debugSquares( std::vector<std::vector<cv::Point> > squares, cv::Mat imag
 - (IBAction)dismissAction:(id)sender {
 //   [self.cropdelegate didFinishCropping:[UIImage imageWithData:UIImageJPEGRepresentation(_sourceImageView.image, 0.0)] from:self];
     
-    if ([self.cropdelegate respondsToSelector:@selector(didFinishCropping:from:)]) {
-        [self.cropdelegate didFinishCropping:_sourceImageView.image from:self];
-    }
+    [self closeWithCompletion:^{
+        ;
+    }];
 
 //    NSLog(@"%d",UIImagePNGRepresentation(_sourceImageView.image).length);
 //    NSLog(@"Size of Image %d",UIImageJPEGRepresentation(_sourceImageView.image, 0.5).length);
@@ -604,7 +607,7 @@ cv::Mat debugSquares( std::vector<std::vector<cv::Point> > squares, cv::Mat imag
         [_finishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             
             make.right.mas_equalTo(-20);
-            make.bottom.mas_equalTo(-20);
+            make.bottom.mas_equalTo(-40);
             make.size.mas_equalTo(CGSizeMake(65, 35));
         }];
     }
@@ -630,7 +633,7 @@ cv::Mat debugSquares( std::vector<std::vector<cv::Point> > squares, cv::Mat imag
         [_backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             
             make.left.mas_equalTo(20);
-            make.bottom.mas_equalTo(-20);
+            make.bottom.mas_equalTo(-40);
             make.size.mas_equalTo(CGSizeMake(65, 35));
         }];
         

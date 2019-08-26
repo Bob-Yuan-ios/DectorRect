@@ -4,14 +4,12 @@
 //
 //  Created by mac on 09/06/15.
 //  Copyright (c) 2015 ailink. All rights reserved.
-//  图片裁剪
+//  图片裁剪+矫正
 
 
 #import <UIKit/UIKit.h>
 #import "UIImage+fixOrientation.h"
 #import "UIImageView+ContentFrame.h"
-
-#import "WLBaseVC.h"
 
 @class WLCropViewController;
 @protocol MMCropDelegate <NSObject>
@@ -20,7 +18,7 @@
 
 @end
 
-@interface WLCropViewController : WLBaseVC{
+@interface WLCropViewController : UIViewController{
     CGFloat _rotateSlider;
     CGRect _initialRect,final_Rect;
 }

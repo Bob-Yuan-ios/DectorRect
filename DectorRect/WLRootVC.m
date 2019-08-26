@@ -7,14 +7,13 @@
 //
 
 #import "WLRootVC.h"
-#import "WLCameraCaptureController.h"
- 
-#import "WLResultVC.h"
- 
+
 #import <WebKit/WebKit.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 
+#import "WLResultVC.h"
 #import "WLCropViewController.h"
+#import "WLCameraCaptureController.h"
 
 @interface WLRootVC ()
 <
@@ -47,7 +46,7 @@ MMCropDelegate
 
     self.view.backgroundColor = [UIColor whiteColor];
     
-    if (![_dectorRectUrl isKindOfClass:[NSString class]] || !_dectorRectUrl.length) {
+    if (![_destionUrl isKindOfClass:[NSString class]] || !_destionUrl.length) {
         [self loadLocalHtml];
     }else{
         [self loadServiceHtml];
@@ -91,12 +90,12 @@ MMCropDelegate
 }
 
 - (void)loadServiceHtml{
-    [self.wkView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_dectorRectUrl]]];
+    [self.wkView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_destionUrl]]];
 }
 
 
 #pragma mark --
-#pragma mark logic method 要调用的方法
+#pragma mark logic method JS和原生交互的接口
 //通过接收JS传出消息的name进行捕捉的回调方法
 - (void)userContentController:(WKUserContentController *)userContentController
       didReceiveScriptMessage:(WKScriptMessage *)message{
@@ -112,10 +111,6 @@ MMCropDelegate
         [self.navigationController pushViewController:vc animated:YES];
      }else if([method isEqualToString:XZ]){
          //图片下载
-//         WLResultVC *vc = [[WLResultVC alloc] init];
-//         vc.downUrl = parameter;
-//         [self.navigationController pushViewController:vc animated:YESp];
-         
          [self downloadImage:parameter];
      }else if([method isEqualToString:PZ]){
          //拍照识别
@@ -319,12 +314,13 @@ MMCropDelegate
         WKUserContentController *wkUController = [[WKUserContentController alloc] init];
         config.userContentController = wkUController;
         
-        _wkView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config];
+        CGRect frame = CGRectMake(0, kNAV_HEIGHT, kSCREEN_WIDTH, kSCREEN_HEIGHT - kNAV_HEIGHT - kBOTTOM_H);
+        _wkView = [[WKWebView alloc] initWithFrame:frame configuration:config];
         _wkView.UIDelegate = self;
         _wkView.navigationDelegate = self;
 
         _wkView.allowsBackForwardNavigationGestures = YES;
-
+        
         [self.view addSubview:_wkView];
     }
     return _wkView;
