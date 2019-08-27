@@ -23,7 +23,7 @@
     CGRect _initialRect,final_Rect;
 }
 
-@property (weak,nonatomic) id<MMCropDelegate> cropdelegate;
+@property (weak,   nonatomic) id<MMCropDelegate> cropdelegate;
 @property (strong, nonatomic) UIImageView *sourceImageView;
 @property (strong, nonatomic) UIImage *adjustedImage,*cropgrayImage,*cropImage;
 

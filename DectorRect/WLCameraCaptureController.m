@@ -118,97 +118,6 @@ MMCropDelegate
     }
 }
 
-#pragma mark - Getter
-- (UIView *)navToolBar
-{
-    if (!_navToolBar) {
-        _navToolBar = [[UIView alloc] init];
-        _navToolBar.backgroundColor = kBaseColor;
-    }
-    return _navToolBar;
-}
-
-- (UIView *)focusIndicator
-{
-    if (!_focusIndicator) {
-        _focusIndicator = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-        _focusIndicator.layer.borderWidth = 5.0f;
-        _focusIndicator.layer.borderColor = kWhiteColor.CGColor;
-        _focusIndicator.alpha = 0;
-    }
-    return _focusIndicator;
-}
-
-
-
-- (UIButton *)leftBtn
-{
-    if (!_leftBtn) {
-        _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _leftBtn.frame = CGRectMake(0, 0, 40, 40);
-        [_leftBtn setImage:[UIImage imageNamed:@"Capture_back_forward"] forState:UIControlStateNormal];
-        [_leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -5, 0, 0)];
-        [_leftBtn setTitle:@"  " forState:UIControlStateNormal];
-        _leftBtn.adjustsImageWhenHighlighted = NO;
-        [_leftBtn addTarget:self action:@selector(popSelf) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _leftBtn;
-}
-
-- (UILabel *)navTitleLabel
-{
-    if (!_navTitleLabel) {
-        _navTitleLabel = [[UILabel alloc] init];
-        _navTitleLabel.textAlignment = NSTextAlignmentCenter;
-        _navTitleLabel.font = [UIFont systemFontOfSize:17];
-        _navTitleLabel.textColor = kWhiteColor;
-    }
-    return _navTitleLabel;
-}
-
-- (UIButton *)flashLigthToggle
-{
-    if (!_flashLigthToggle) {
-        _flashLigthToggle = [UIButton buttonWithType:UIButtonTypeCustom];
-        _flashLigthToggle.frame = CGRectMake(0, 0, 40, 40);
-        [_flashLigthToggle setImage:[UIImage imageNamed:@"Capture_torch"] forState:UIControlStateNormal];
-        [_flashLigthToggle setImageEdgeInsets:UIEdgeInsetsMake(0, -5, 0, 0)];
-        [_flashLigthToggle setTitle:@"  " forState:UIControlStateNormal];
-        _flashLigthToggle.titleLabel.font = [UIFont systemFontOfSize:17];
-        _flashLigthToggle.adjustsImageWhenHighlighted = NO;
-        [_flashLigthToggle addTarget:self action:@selector(onFlashLigthToggle) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _flashLigthToggle;
-}
-
-- (WLSnapshotButton *)snapshotBtn
-{
-    if (!_snapshotBtn) {
-        _snapshotBtn = [[WLSnapshotButton alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
-        [_snapshotBtn addTarget:self action:@selector(onSnapshotBtn:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _snapshotBtn;
-}
-
-- (WLCameraCaptureView *)captureCameraView
-{
-    if (!_captureCameraView) {
-        _captureCameraView = [[WLCameraCaptureView alloc] initWithFrame:CGRectMake(0, 0, kSCREEN_WIDTH, 300)];
-        //打开边缘检测
-        [_captureCameraView setEnableBorderDetection:YES];
-        _captureCameraView.backgroundColor = kBlackColor;
-    }
-    return _captureCameraView;
-}
-
-- (UITapGestureRecognizer *)tapGestureRecognizer
-{
-    if (!_tapGestureRecognizer) {
-        _tapGestureRecognizer = [[UITapGestureRecognizer alloc] init];
-//        _tapGestureRecognizer.delegate = self;
-    }
-    return _tapGestureRecognizer;
-}
 
 #pragma mark - engine
 - (void)onFlashLigthToggle {
@@ -306,6 +215,99 @@ MMCropDelegate
     animation.duration = 0.5;
     [self.navTitleLabel.layer addAnimation:animation forKey:@"kCATransitionFade"];
     self.navTitleLabel.text = self.captureCameraView.isTorchEnabled ? @"闪光灯 开" : @"闪光灯 关";
+}
+
+
+#pragma mark - Getter
+- (UIView *)navToolBar
+{
+    if (!_navToolBar) {
+        _navToolBar = [[UIView alloc] init];
+        _navToolBar.backgroundColor = kBaseColor;
+    }
+    return _navToolBar;
+}
+
+- (UIView *)focusIndicator
+{
+    if (!_focusIndicator) {
+        _focusIndicator = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+        _focusIndicator.layer.borderWidth = 5.0f;
+        _focusIndicator.layer.borderColor = kWhiteColor.CGColor;
+        _focusIndicator.alpha = 0;
+    }
+    return _focusIndicator;
+}
+
+
+
+- (UIButton *)leftBtn
+{
+    if (!_leftBtn) {
+        _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _leftBtn.frame = CGRectMake(0, 0, 40, 40);
+        [_leftBtn setImage:[UIImage imageNamed:@"Capture_back_forward"] forState:UIControlStateNormal];
+        [_leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -5, 0, 0)];
+        [_leftBtn setTitle:@"  " forState:UIControlStateNormal];
+        _leftBtn.adjustsImageWhenHighlighted = NO;
+        [_leftBtn addTarget:self action:@selector(popSelf) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _leftBtn;
+}
+
+- (UILabel *)navTitleLabel
+{
+    if (!_navTitleLabel) {
+        _navTitleLabel = [[UILabel alloc] init];
+        _navTitleLabel.textAlignment = NSTextAlignmentCenter;
+        _navTitleLabel.font = [UIFont systemFontOfSize:17];
+        _navTitleLabel.textColor = kWhiteColor;
+    }
+    return _navTitleLabel;
+}
+
+- (UIButton *)flashLigthToggle
+{
+    if (!_flashLigthToggle) {
+        _flashLigthToggle = [UIButton buttonWithType:UIButtonTypeCustom];
+        _flashLigthToggle.frame = CGRectMake(0, 0, 40, 40);
+        [_flashLigthToggle setImage:[UIImage imageNamed:@"Capture_torch"] forState:UIControlStateNormal];
+        [_flashLigthToggle setImageEdgeInsets:UIEdgeInsetsMake(0, -5, 0, 0)];
+        [_flashLigthToggle setTitle:@"  " forState:UIControlStateNormal];
+        _flashLigthToggle.titleLabel.font = [UIFont systemFontOfSize:17];
+        _flashLigthToggle.adjustsImageWhenHighlighted = NO;
+        [_flashLigthToggle addTarget:self action:@selector(onFlashLigthToggle) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _flashLigthToggle;
+}
+
+- (WLSnapshotButton *)snapshotBtn
+{
+    if (!_snapshotBtn) {
+        _snapshotBtn = [[WLSnapshotButton alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
+        [_snapshotBtn addTarget:self action:@selector(onSnapshotBtn:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _snapshotBtn;
+}
+
+- (WLCameraCaptureView *)captureCameraView
+{
+    if (!_captureCameraView) {
+        _captureCameraView = [[WLCameraCaptureView alloc] initWithFrame:CGRectMake(0, 0, kSCREEN_WIDTH, 300)];
+        //打开边缘检测
+        [_captureCameraView setEnableBorderDetection:YES];
+        _captureCameraView.backgroundColor = kBlackColor;
+    }
+    return _captureCameraView;
+}
+
+- (UITapGestureRecognizer *)tapGestureRecognizer
+{
+    if (!_tapGestureRecognizer) {
+        _tapGestureRecognizer = [[UITapGestureRecognizer alloc] init];
+        //        _tapGestureRecognizer.delegate = self;
+    }
+    return _tapGestureRecognizer;
 }
 
 #pragma mark - Contraints

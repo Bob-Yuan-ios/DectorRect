@@ -91,78 +91,6 @@ UINavigationControllerDelegate
    
     
     [self.view addSubview:_sourceImageView];
-    
-//    NSLog(@"%f %f",_sourceImageView.contentFrame.size.height,_sourceImageView.contentFrame.size.height);
-//
-//    [self buttonsScroll];
-//
-//    [UIView animateWithDuration:0.5 animations:^{
-//        self->scrollView.frame=CGRectMake(0, -kNAV_HEIGHT, kSCREEN_WIDTH, kNAV_HEIGHT);
-//    }];
-}
-
-
--(void)buttonsScroll{
-//    NSArray *butArr=@[@"",@"noedit_filled",@"original_filled",@"blackwhite_filled",@"magic_filled",@"default_filled"];
-//    NSArray *labArr=@[@"",@"Original",@"Gray Scale",@"Black & White",@"Magic Color",@"Default"];
-//    scrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64)];
-//    [self.view addSubview:scrollView];
-//    NSUInteger i;
-//    int xCoord=0;
-//    int yCoord=0;
-//    int buttonWidth=80;
-//    int buttonHeight=40;
-//    int buffer = 10;
-//    for (i = 1; i <= 5; i++)
-//    {
-//        UIButton *aButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [aButton setImage:[UIImage renderImage:[butArr objectAtIndex:i]] forState:UIControlStateNormal];
-//        aButton.frame     = CGRectMake(xCoord, yCoord,buttonWidth,buttonHeight );
-//        aButton.tintColor=[UIColor whiteColor];
-//        aButton.tag=i;
-//        [aButton addTarget:self action:@selector(scrolllButAction:) forControlEvents:UIControlEventTouchUpInside];
-//
-//        UILabel *aLabel=[[UILabel alloc] initWithFrame:CGRectMake(xCoord, 40,buttonWidth,24 )];
-//        aLabel.text=[labArr objectAtIndex:i];
-//        aLabel.textColor=[UIColor whiteColor];
-//        [aLabel setAdjustsFontSizeToFitWidth:YES];
-//        aLabel.font=[UIFont fontWithName:@"HelveticaNeue-Light" size:14];
-//        aLabel.textAlignment=NSTextAlignmentCenter;
-//        [scrollView addSubview:aButton];
-//        [scrollView addSubview:aLabel];
-//
-//        xCoord += buttonWidth + buffer;
-//    }
-//    [scrollView setContentSize:CGSizeMake(xCoord, yCoord)];
-//    scrollView.showsHorizontalScrollIndicator=NO;
-//    scrollView.backgroundColor=[UIColor colorWithHexString:backgroundHex];
-}
-
-
--(void)scrolllButAction:(UIButton *)sender{
-//    switch (sender.tag) {
-//        case 1:
-//            _sourceImageView.image=_cropImage;
-//            break;
-//        case 2:
-//             _sourceImageView.image=[self grayImage:_cropImage];
-//            break;
-//        case 3:
-//            _sourceImageView.image= [self blackandWhite:_cropImage];
-//            break;
-//        case 4:
-//            _sourceImageView.image= [self magicColor:_cropImage];
-//            break;
-//
-//        case 5:
-//            _sourceImageView.image= _adjustedImage;
-//            _cropRect.hidden=NO;
-//            [UIView animateWithDuration:0.5 animations:^{
-//                self->scrollView.frame=CGRectMake(0, -64, self.view.bounds.size.width, 64);
-//            }];
-//            break;
-//
-//    }
 }
 
 - (void)singlePan:(UIPanGestureRecognizer *)gesture{
@@ -415,7 +343,7 @@ cv::Mat debugSquares( std::vector<std::vector<cv::Point> > squares, cv::Mat imag
     return image;
 }
 
-- (IBAction)cropAction:(id)sender {
+- (void)cropAction:(id)sender {
     
     if([_cropRect frameEdited]){
         
@@ -546,7 +474,7 @@ cv::Mat debugSquares( std::vector<std::vector<cv::Point> > squares, cv::Mat imag
 
 }
 
-- (IBAction)dismissAction:(id)sender {
+- (void)dismissAction:(id)sender {
 //   [self.cropdelegate didFinishCropping:[UIImage imageWithData:UIImageJPEGRepresentation(_sourceImageView.image, 0.0)] from:self];
     
     [self closeWithCompletion:^{

@@ -30,7 +30,8 @@ UINavigationControllerDelegate
 
 @implementation WLResultVC
 
-#pragma mark - UINavigationBarDelegate
+#pragma mark --
+#pragma mark UINavigationBarDelegate
 - (void)navigationController:(UINavigationController *)navigationController
       willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
     {
@@ -43,8 +44,9 @@ UINavigationControllerDelegate
             [[UIApplication sharedApplication] setStatusBarHidden:NO];
         }
     }
-    
-    
+
+#pragma mark --
+#pragma mark life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -63,33 +65,35 @@ UINavigationControllerDelegate
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 }
-    
+
+#pragma mark --
+#pragma mark btnAction
+/**
+ 取消
+ */
 - (void)backAction{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+/**
+ 完成
+ */
 - (void)completeAction{
     [[NSNotificationCenter defaultCenter] postNotificationName:CJTP object:_resultImg];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+/**
+ 预览图片
+ */
 - (void)tapAction{
     STPhotoBroswer *_broswer = [[STPhotoBroswer alloc] initWithImageArray:@[_resultImg] currentIndex:0];
     [_broswer show];
 }
 
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
- 
-
+#pragma mark --
+#pragma mark lazy load
 - (UIImageView *)showResult
 {
     if (!_showResult) {
