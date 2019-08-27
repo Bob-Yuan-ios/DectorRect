@@ -24,8 +24,8 @@
     [_window makeKeyAndVisible];
     
     WLRootVC *vc = [[WLRootVC alloc] init];
-    vc.destionUrl = nil;
-
+    vc.destionUrl = SERVICEURL;
+    
     UINavigationController *rootVC = [[UINavigationController alloc] initWithRootViewController:vc];
     [_window setRootViewController:rootVC];
 

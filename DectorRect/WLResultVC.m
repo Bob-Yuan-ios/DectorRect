@@ -62,8 +62,6 @@ UINavigationControllerDelegate
  
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    NSLog(@"contentSize is:%@",NSStringFromCGSize(self.showResult.contentSize));
-    NSLog(@"imageSize is:%@",NSStringFromCGSize(_resultImg.size));
 }
     
 - (void)backAction{

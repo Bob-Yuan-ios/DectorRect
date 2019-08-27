@@ -150,13 +150,15 @@ MMCropDelegate
     
     [self.wkView evaluateJavaScript:jsStr completionHandler:^(id _Nullable result, NSError * _Nullable error) {
         
-        NSString *errMsg = error.userInfo.description;
-        NSString *message = errMsg.length ? errMsg : @"提交成功";
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-
-        }]];
-        [self presentViewController:alert animated:YES completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *errMsg = error.userInfo.description;
+            NSString *message = errMsg.length ? errMsg : @"提交成功";
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
+        });
         
     }];
 }
@@ -303,7 +305,7 @@ MMCropDelegate
         WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
         WKPreferences *preferences = [WKPreferences new];
         preferences.javaScriptCanOpenWindowsAutomatically = YES;
-        preferences.minimumFontSize = 40.0;
+        preferences.javaScriptEnabled = YES;
         config.preferences = preferences;
 
         //这个类主要用来做native与JavaScript的交互管理
