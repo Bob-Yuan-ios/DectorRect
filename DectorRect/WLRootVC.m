@@ -81,7 +81,8 @@ MMCropDelegate
 }
 
 
-
+#pragma mark --
+#pragma mark load url
 - (void)loadLocalHtml{
     NSString *path = [[NSBundle mainBundle] pathForResource:@"index.html" ofType:nil];
     NSString *htmlString = [[NSString alloc]initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
@@ -95,8 +96,53 @@ MMCropDelegate
 
 
 #pragma mark --
-#pragma mark logic method JS和原生交互的接口
-//通过接收JS传出消息的name进行捕捉的回调方法
+#pragma mark JS和原生互相调用逻辑
+/**
+ 原生回调JS：回传图片
+ 
+ @param notify 带图片信息的通知
+ */
+- (void)callBackPhoto:(NSNotification *)notify{
+    
+    UIImage *img = notify.object;
+    NSData *data = UIImageJPEGRepresentation(img, .1f);
+    
+    NSString *imgCon = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+    NSString *imgStr = [NSString stringWithFormat:@"data:image/jpeg;base64,%@",imgCon];
+    
+    NSString *imgName = [NSString stringWithFormat:@"%.lf.jpeg",[[NSDate date] timeIntervalSince1970]];
+    
+    NSDictionary *dic = @{@"img":imgStr,@"name":imgName};
+    
+    NSError *err;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&err];
+    
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    NSString *jsStr = [NSString stringWithFormat:@"javascript:%@(%@)",SC,jsonString];
+    
+    [self.wkView evaluateJavaScript:jsStr completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *errMsg = error.userInfo.description;
+            NSString *message = errMsg.length ? errMsg : @"提交成功";
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
+        });
+        
+    }];
+}
+
+
+/**
+ JS调用原生
+
+ @param userContentController 监听JS的类
+ @param message 收到的JS消息
+ */
 - (void)userContentController:(WKUserContentController *)userContentController
       didReceiveScriptMessage:(WKScriptMessage *)message{
     NSLog(@"name:%@\\\\n body:%@\\\\n frameInfo:%@\\\\n",message.name,message.body,message.frameInfo);
@@ -121,46 +167,6 @@ MMCropDelegate
          //相册
          [self choosePhotoLibrary];
      }
-}
-
-
-/**
- 把识别的图片回传到h5
-
- @param notify 带图片信息的通知
- */
-- (void)callBackPhoto:(NSNotification *)notify{
-    
-    UIImage *img = notify.object;
-    NSData *data = UIImageJPEGRepresentation(img, .1f);
-    
-    NSString *imgCon = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-    NSString *imgStr = [NSString stringWithFormat:@"data:image/jpeg;base64,%@",imgCon];
-    
-    NSString *imgName = [NSString stringWithFormat:@"%.lf.jpeg",[[NSDate date] timeIntervalSince1970]];
-    
-    NSDictionary *dic = @{@"img":imgStr,@"name":imgName};
-    
-    NSError *err;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&err];
-
-    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-
-    NSString *jsStr = [NSString stringWithFormat:@"javascript:%@(%@)",SC,jsonString];
-    
-    [self.wkView evaluateJavaScript:jsStr completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSString *errMsg = error.userInfo.description;
-            NSString *message = errMsg.length ? errMsg : @"提交成功";
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                
-            }]];
-            [self presentViewController:alert animated:YES completion:nil];
-        });
-        
-    }];
 }
 
 
