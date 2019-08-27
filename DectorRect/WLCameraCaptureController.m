@@ -232,12 +232,6 @@ MMCropDelegate
             [strongSelf.nav pushViewController:resultVC animated:YES];
         }else{
             WLCropViewController *crop = [WLCropViewController new];
-            //[self.storyboard instantiateViewControllerWithIdentifier:@"crop"];
-            //        crop.cropdelegate=self;
-            //        ripple=[[RippleAnimation alloc] init];
-            //        crop.transitioningDelegate=ripple;
-            //        ripple.touchPoint=self.cameraBut.frame;
-
             crop.adjustedImage = data;
             crop.cropdelegate = self;
             [strongSelf.nav presentViewController:crop animated:YES completion:nil];
