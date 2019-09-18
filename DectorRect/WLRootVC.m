@@ -122,16 +122,17 @@ MMCropDelegate
     NSString *jsStr = [NSString stringWithFormat:@"javascript:%@(%@)",SC,jsonString];
     
     [self.wkView evaluateJavaScript:jsStr completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSString *errMsg = error.userInfo.description;
-            NSString *message = errMsg.length ? errMsg : @"提交成功";
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                
-            }]];
-            [self presentViewController:alert animated:YES completion:nil];
-        });
+ 
+//        //回传回来在子线程
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            NSString *errMsg = error.userInfo.description;
+//            NSString *message = errMsg.length ? errMsg : @"提交成功";
+//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+//            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//            }]];
+//            [self presentViewController:alert animated:YES completion:nil];
+//        });
         
     }];
 }

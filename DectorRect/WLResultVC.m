@@ -10,7 +10,7 @@
 #import "Masonry.h"
 #import "STPhotoBroswer.h"
 #import "UIImageView+ContentFrame.h"
-
+#import "WLRootVC.h"
 
 @interface WLResultVC ()
 <
@@ -80,7 +80,19 @@ UINavigationControllerDelegate
  */
 - (void)completeAction{
     [[NSNotificationCenter defaultCenter] postNotificationName:CJTP object:_resultImg];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    WLRootVC *desVC = nil;
+    for (UIViewController *vc in self.navigationController.childViewControllers ) {
+        if ([vc isKindOfClass:[WLRootVC class]]) {
+            desVC = (WLRootVC *)vc;
+        }
+    }
+    
+    if (desVC) {
+        [self.navigationController popToViewController:desVC animated:YES];
+    }else{
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 /**

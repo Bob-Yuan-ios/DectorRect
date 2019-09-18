@@ -7,7 +7,9 @@
 //
 
 #import "AppDelegate.h"
-#import "WLRootVC.h"
+//#import "WLRootVC.h"
+
+#import "WLResetUrlVC.h"
 
 @interface AppDelegate ()
 
@@ -23,9 +25,10 @@
     [_window setBackgroundColor:[UIColor whiteColor]];
     [_window makeKeyAndVisible];
     
-    WLRootVC *vc = [[WLRootVC alloc] init];
-    vc.destionUrl = SERVICEURL;
-    
+//    WLRootVC *vc = [[WLRootVC alloc] init];
+//    vc.destionUrl = SERVICEURL;
+
+    WLResetUrlVC *vc = [[WLResetUrlVC alloc] init];
     UINavigationController *rootVC = [[UINavigationController alloc] initWithRootViewController:vc];
     [_window setRootViewController:rootVC];
 
