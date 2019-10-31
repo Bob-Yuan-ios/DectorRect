@@ -13,7 +13,8 @@
 
 #import <Photos/Photos.h>
 #import <AVFoundation/AVFoundation.h>
- #import "WLResultVC.h"
+#import "WLResultVC.h"
+
 #import "WLCropViewController.h"
 #import "WLCameraCaptureController.h"
 
@@ -158,7 +159,6 @@ MMCropDelegate
         //拍照识别
         if (![self checkCameraPrivacy]) return;
         [self takephoto];
-  
      }else if([method isEqualToString:XZ]){
          //图片下载
          [self downloadImage:parameter];
@@ -299,7 +299,6 @@ MMCropDelegate
     }]];
     [self presentViewController:alert animated:YES completion:nil];
 }
-
 
 #pragma mark --
 #pragma mark 授权相机/相册

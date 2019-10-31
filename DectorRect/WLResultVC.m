@@ -10,7 +10,6 @@
 #import "Masonry.h"
 #import "STPhotoBroswer.h"
 #import "UIImageView+ContentFrame.h"
-
 #import "WLRootVC.h"
 
 @interface WLResultVC ()

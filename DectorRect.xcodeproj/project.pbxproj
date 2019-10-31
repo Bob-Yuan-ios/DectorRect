@@ -14,6 +14,7 @@
 		048A7F27230F789B00530FAA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048A7F26230F789B00530FAA /* Foundation.framework */; };
 		048A7F28230F78A300530FAA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51710FB71FAB7A6E002CDCD7 /* UIKit.framework */; };
 		048D8D9B22EFEDE300A9F1DD /* WLResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 048D8D9A22EFEDE300A9F1DD /* WLResultVC.m */; };
+		04C236B9236A6D0300EB294C /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C236B8236A6D0300EB294C /* opencv2.framework */; };
 		04F786ED230F73A600CBF8D1 /* WLCropViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04F786EC230F73A600CBF8D1 /* WLCropViewController.mm */; };
 		04F786F4230F748100CBF8D1 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F786F2230F748100CBF8D1 /* UIImage+fixOrientation.m */; };
 		04F786F5230F748100CBF8D1 /* UIImageView+ContentFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F786F3230F748100CBF8D1 /* UIImageView+ContentFrame.m */; };
@@ -64,6 +65,7 @@
 		048A7F26230F789B00530FAA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		048D8D9922EFEDE300A9F1DD /* WLResultVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLResultVC.h; sourceTree = "<group>"; };
 		048D8D9A22EFEDE300A9F1DD /* WLResultVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WLResultVC.m; sourceTree = "<group>"; };
+		04C236B8236A6D0300EB294C /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		04F786EB230F73A600CBF8D1 /* WLCropViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCropViewController.h; sourceTree = "<group>"; };
 		04F786EC230F73A600CBF8D1 /* WLCropViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WLCropViewController.mm; sourceTree = "<group>"; };
 		04F786F0230F748100CBF8D1 /* UIImageView+ContentFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+ContentFrame.h"; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				048A7F28230F78A300530FAA /* UIKit.framework in Frameworks */,
 				048A7F27230F789B00530FAA /* Foundation.framework in Frameworks */,
 				51710FB61FAB7A0A002CDCD7 /* CoreGraphics.framework in Frameworks */,
+				04C236B9236A6D0300EB294C /* opencv2.framework in Frameworks */,
 				C6D617B654D203C1E65977F7 /* libPods-DectorRect.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,6 +298,7 @@
 		51710FB41FAB7A01002CDCD7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04C236B8236A6D0300EB294C /* opencv2.framework */,
 				048A7F26230F789B00530FAA /* Foundation.framework */,
 				51710FB71FAB7A6E002CDCD7 /* UIKit.framework */,
 				51710FB51FAB7A02002CDCD7 /* CoreGraphics.framework */,
