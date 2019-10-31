@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript">
+
+		//拍照测试
+		var takePhoto = function(){
+            window.webkit.messageHandlers.takePhoto.postMessage(null);
+        }
+    
+		//相册测试
+		var choosePhoto = function(){
+            window.webkit.messageHandlers.choosePhoto.postMessage(null);
+		}
+  
+        //下载测试
+        var download = function(){
+            window.webkit.messageHandlers.downloadPhoto.postMessage("http://pic33.nipic.com/20131007/13639685_123501617185_2.jpg");
+        }
+
+		//拍照识别
+		var gotoDiscriminate = function(){
+            window.webkit.messageHandlers.gotoDiscriminate.postMessage(null);
+		}
+    
+        //保存图片
+        var getPhoto = function(response){
+            //因为response是JSON对象，所以直接通过key(img)获取value
+            this.imgUrl = response.img;
+            var name = response.name;
+            var dataURL = response.img;
+            var imgData = dataURL.replace("data:image/jpeg;base64,", "");
+            var base64Str = imgData;
+            var fileType = "image/jpeg";
+            var zlblob1 = function (base64Str, fileType) {
+                    var base64 = window.atob(base64Str);
+                    var len = base64.length;
+                    var buff = new ArrayBuffer(len);
+                    var uarr = new Uint8Array(buff);
+                    for (var i = 0; i < len; i++) {
+                        uarr[i] = base64.charCodeAt(i);
+                }
+            }
+        }
+    
+    </script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <button onclick="takePhoto()" style=" width:600px; height:120px; margin:20px">
+        拍照测试
+    </button>
+    <input type="file" name="threshold" id="goodsCode" align="left" style="width:1000px;font-size: 50px;text-align: left;margin-left:10px;border:none;BACKGROUND-COLOR: transparent; margin:20px" placeholder="图片路径">
+    <button onclick="choosePhoto()" style=" width:600px; height:120px; margin:20px">
+        选择图片
+    </button>
+    <button onclick="gotoDiscriminate()" style=" width:600px; height:120px; margin:20px">
+        拍照识别测试
+    </button>
+    <button onclick="download()" style=" width:600px; height:120px; margin:20px">
+        下载测试
+    </button>
+</body>
+
+</html>
