@@ -11,20 +11,11 @@ DerivedData
 .idea/
 *.hmap
 *.xccheckout
-<<<<<<< HEAD
 
-=======
-*.xcworkspace
-!default.xcworkspace
->>>>>>> 13dc1d900bfe1e4a33adbd87a2b12b4a5d074c64
 
 # ios工程文件
 *.framework
 *.a
-<<<<<<< HEAD
- 
-=======
->>>>>>> 13dc1d900bfe1e4a33adbd87a2b12b4a5d074c64
 
 # CocoaPods
 Pods
