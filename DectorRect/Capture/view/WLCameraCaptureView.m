@@ -36,6 +36,7 @@
 @property (nonatomic, strong) AVCaptureStillImageOutput* stillImageOutput;
 // 是否强制停止
 @property (nonatomic, assign) BOOL forceStop;
+@property (nonatomic, assign) TransformCIFeatureRect featureRect;
 
 
 @end
@@ -341,7 +342,8 @@
 }
 
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
--(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
+-(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
+      fromConnection:(AVCaptureConnection *)connection
 {
     
     if (self.forceStop || _isStopped || _isCapturing || !CMSampleBufferIsValid(sampleBuffer)) return;
@@ -351,6 +353,8 @@
     CIImage *image = [CIImage imageWithCVPixelBuffer:pixelBuffer];
     
     image = [self filteredImageUsingContrastFilterOnImage:image];
+    
+    
     
     if (self.isBorderDetectionEnabled)//开启了边缘检测
     {
@@ -375,7 +379,11 @@
             // draw border layer
             if (rectangleDetectionConfidenceHighEnough(_imageDedectionConfidence))
             {
-                [self drawBorderDetectRectWithImageRect:image.extent topLeft:_borderDetectLastRectangleFeature.topLeft topRight:_borderDetectLastRectangleFeature.topRight bottomLeft:_borderDetectLastRectangleFeature.bottomLeft bottomRight:_borderDetectLastRectangleFeature.bottomRight];
+                [self drawBorderDetectRectWithImageRect:image.extent
+                                                topLeft:_borderDetectLastRectangleFeature.topLeft
+                                               topRight:_borderDetectLastRectangleFeature.topRight
+                                             bottomLeft:_borderDetectLastRectangleFeature.bottomLeft
+                                            bottomRight:_borderDetectLastRectangleFeature.bottomRight];
             }
             
         }
@@ -398,42 +406,56 @@
     }
 }
 
+
 // 绘制边缘检测图层
-- (void)drawBorderDetectRectWithImageRect:(CGRect)imageRect topLeft:(CGPoint)topLeft topRight:(CGPoint)topRight bottomLeft:(CGPoint)bottomLeft bottomRight:(CGPoint)bottomRight
+- (void)drawBorderDetectRectWithImageRect:(CGRect)imageRect
+                                  topLeft:(CGPoint)topLeft
+                                 topRight:(CGPoint)topRight
+                               bottomLeft:(CGPoint)bottomLeft
+                              bottomRight:(CGPoint)bottomRight
 {
     
     if (!_rectOverlay) {
         _rectOverlay = [CAShapeLayer layer];
         _rectOverlay.fillRule = kCAFillRuleEvenOdd;
-        _rectOverlay.fillColor = [UIColor clearColor].CGColor;
+
+        _rectOverlay.fillColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6].CGColor;
         _rectOverlay.strokeColor = [UIColor blueColor].CGColor;
         _rectOverlay.lineWidth = 1.0f;
     }
+    
     if (!_rectOverlay.superlayer) {
         self.layer.masksToBounds = YES;
         [self.layer addSublayer:_rectOverlay];
     }
 
     // 将图像空间的坐标系转换成uikit坐标系
-    TransformCIFeatureRect featureRect = [self transfromRealRectWithImageRect:imageRect topLeft:topLeft topRight:topRight bottomLeft:bottomLeft bottomRight:bottomRight];
+    _featureRect  = [self transfromRealRectWithImageRect:imageRect
+                                                 topLeft:topLeft
+                                                topRight:topRight
+                                              bottomLeft:bottomLeft
+                                             bottomRight:bottomRight];
     
+   
     // 边缘识别路径
     UIBezierPath *path = [UIBezierPath new];
-    [path moveToPoint:featureRect.topLeft];
-    [path addLineToPoint:featureRect.topRight];
-    [path addLineToPoint:featureRect.bottomRight];
-    [path addLineToPoint:featureRect.bottomLeft];
+    [path moveToPoint:_featureRect.topLeft];
+    [path addLineToPoint:_featureRect.topRight];
+    [path addLineToPoint:_featureRect.bottomRight];
+    [path addLineToPoint:_featureRect.bottomLeft];
     [path closePath];
     
     // 背景遮罩路径
-    UIBezierPath *rectPath  = [UIBezierPath bezierPathWithRect:CGRectMake(-5,
-                                                                          -5,
-                                                                          self.frame.size.width + 10,
-                                                                          self.frame.size.height + 10)];
-    [rectPath setUsesEvenOddFillRule:YES];
+    CGSize size = self.frame.size;
+    UIBezierPath *rectPath = [UIBezierPath bezierPathWithRect:CGRectMake(-5,
+                                                                         -5,
+                                                                         size.width + 10,
+                                                                         size.height + 10)];
     [rectPath appendPath:path];
+    
     _rectOverlay.path = rectPath.CGPath;
 }
+
 
 /// 拍照动作
 - (void)captureImageWithCompletionHandler:(CompletionHandler)completionHandler
@@ -475,7 +497,6 @@
               {
                   // 获取边缘识别最大矩形
                   rectangleFeature = [strongSelf biggestRectangleInRectangles:[[self highAccuracyRectangleDetector] featuresInImage:enhancedImage]];
-
                   if (rectangleFeature)
                   {
                       enhancedImage = [strongSelf correctPerspectiveForImage:enhancedImage withFeatures:rectangleFeature];
@@ -486,13 +507,16 @@
              UIGraphicsBeginImageContext(CGSizeMake(enhancedImage.extent.size.height, enhancedImage.extent.size.width));
              // UIImageOrientationDown
              [[UIImage imageWithCIImage:enhancedImage scale:1.0 orientation:UIImageOrientationRight] drawInRect:CGRectMake(0,0, enhancedImage.extent.size.height, enhancedImage.extent.size.width)];
-             
+
 //# warn 这里的UIImageOrientationDown设置是和拍摄时图片的原始方向布局一样的，要是用UIImageOrientationRight的话会出现剪切的图片为横屏的，和原始的图片方向不同（做了一个90度的旋转）
 //                [[UIImage imageWithCIImage:enhancedImage scale:1.0 orientation:UIImageOrientationDown] drawInRect:CGRectMake(0,0, enhancedImage.extent.size.height, enhancedImage.extent.size.width)];
              UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
              UIGraphicsEndImageContext();
-             
+
              completionHandler(image, rectangleFeature);
+#warning 适配自动裁剪
+//             TransformCIFeatureRect df = strongSelf.featureRect;
+//             completionHandler([UIImage imageWithData:imageData], &df);
          }
          else//未开启边缘识别，直接返回图片
          {
@@ -519,13 +543,18 @@
 
 
 // 添加边缘识别遮盖
-- (CIImage *)drawHighlightOverlayForPoints:(CIImage *)image topLeft:(CGPoint)topLeft topRight:(CGPoint)topRight bottomLeft:(CGPoint)bottomLeft bottomRight:(CGPoint)bottomRight
+- (CIImage *)drawHighlightOverlayForPoints:(CIImage *)image
+                                   topLeft:(CGPoint)topLeft
+                                  topRight:(CGPoint)topRight
+                                bottomLeft:(CGPoint)bottomLeft
+                               bottomRight:(CGPoint)bottomRight
 {
     // overlay
     CIImage *overlay = [CIImage imageWithColor:[CIColor colorWithRed:73/255.0 green:130/255.0 blue:180/255.0 alpha:0.5]];
     overlay = [overlay imageByCroppingToRect:image.extent];
     
-    overlay = [overlay imageByApplyingFilter:@"CIPerspectiveTransformWithExtent" withInputParameters:@{@"inputExtent":[CIVector vectorWithCGRect:image.extent],
+    overlay = [overlay imageByApplyingFilter:@"CIPerspectiveTransformWithExtent"
+                         withInputParameters:@{@"inputExtent":[CIVector vectorWithCGRect:image.extent],
                               @"inputTopLeft":[CIVector vectorWithCGPoint:topLeft],
                               @"inputTopRight":[CIVector vectorWithCGPoint:topRight],
                               @"inputBottomLeft":[CIVector vectorWithCGPoint:bottomLeft],
@@ -535,11 +564,20 @@
 }
 
 /// 坐标系转换
-- (TransformCIFeatureRect)transfromRealRectWithImageRect:(CGRect)imageRect topLeft:(CGPoint)topLeft topRight:(CGPoint)topRight bottomLeft:(CGPoint)bottomLeft bottomRight:(CGPoint)bottomRight
+- (TransformCIFeatureRect)transfromRealRectWithImageRect:(CGRect)imageRect
+                                                 topLeft:(CGPoint)topLeft
+                                                topRight:(CGPoint)topRight
+                                              bottomLeft:(CGPoint)bottomLeft
+                                             bottomRight:(CGPoint)bottomRight
 {
     CGRect previewRect = self.frame;
     
-    return [WLCGTransfromHelper transfromRealCIRectInPreviewRect:previewRect imageRect:imageRect topLeft:topLeft topRight:topRight bottomLeft:bottomLeft bottomRight:bottomRight];
+    return [WLCGTransfromHelper transfromRealCIRectInPreviewRect:previewRect
+                                                       imageRect:imageRect
+                                                         topLeft:topLeft
+                                                        topRight:topRight
+                                                      bottomLeft:bottomLeft
+                                                     bottomRight:bottomRight];
 }
 
 BOOL rectangleDetectionConfidenceHighEnough(float confidence)

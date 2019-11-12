@@ -7,7 +7,9 @@
 //
 
 #import "MMCropView.h"
+
 #define kCropButtonSize 30
+
 @implementation MMCropView
 @synthesize pointD = _pointD;
 @synthesize pointC = _pointC;
@@ -27,7 +29,10 @@
         _pointC=[[UIView alloc] init];
         _pointD=[[UIView alloc] init];
     
-        _pointA.alpha=0.5;_pointB.alpha=0.5;_pointC.alpha=0.5;_pointD.alpha=0.5;
+        _pointA.alpha=0.5;
+        _pointB.alpha=0.5;
+        _pointC.alpha=0.5;
+        _pointD.alpha=0.5;
  
         _pointA.layer.cornerRadius = kCropButtonSize/2;
         _pointB.layer.cornerRadius = kCropButtonSize/2;
@@ -70,7 +75,8 @@
     for (uint i=0; i<self.points.count; i++)
     {
         UIView *v = [self.points objectAtIndex:i];
-        CGPoint point = CGPointMake(v.frame.origin.x +kCropButtonSize/2, v.frame.origin.y +kCropButtonSize/2);
+        CGPoint point = CGPointMake(v.frame.origin.x +kCropButtonSize/2,
+                                    v.frame.origin.y +kCropButtonSize/2);
         [p addObject:[NSValue valueWithCGPoint:point]];
     }
     
@@ -98,20 +104,22 @@
     
     switch (point) {
         case 1:
-            tmp = CGPointMake((_pointA.frame.origin.x+15) / scaleFactor, (_pointA.frame.origin.y+15) / scaleFactor);
+            tmp = CGPointMake((_pointA.frame.origin.x+kCropButtonSize/2) / scaleFactor,
+                              (_pointA.frame.origin.y+kCropButtonSize/2) / scaleFactor);
             break;
         case 2:
-            tmp = CGPointMake((_pointB.frame.origin.x+15) / scaleFactor, (_pointB.frame.origin.y+15) / scaleFactor);
+            tmp = CGPointMake((_pointB.frame.origin.x+kCropButtonSize/2) / scaleFactor,
+                              (_pointB.frame.origin.y+kCropButtonSize/2) / scaleFactor);
             break;
         case 3:
-            tmp = CGPointMake((_pointC.frame.origin.x+15) / scaleFactor, (_pointC.frame.origin.y+15) / scaleFactor);
+            tmp = CGPointMake((_pointC.frame.origin.x+kCropButtonSize/2) / scaleFactor,
+                              (_pointC.frame.origin.y+kCropButtonSize/2) / scaleFactor);
             break;
         case 4:
-            tmp =  CGPointMake((_pointD.frame.origin.x+15) / scaleFactor, (_pointD.frame.origin.y+15) / scaleFactor);
+            tmp =  CGPointMake((_pointD.frame.origin.x+kCropButtonSize/2) / scaleFactor,
+                               (_pointD.frame.origin.y+kCropButtonSize/2) / scaleFactor);
             break;
     }
-    
-    //NSLog(@"%@", NSStringFromCGPoint(tmp));
     
     return tmp;
 }
@@ -174,8 +182,22 @@
     [self drawRect:self.bounds];
 }
 
-- (void)drawRect:(CGRect)rect;
+- (void)drawRect:(CGRect)rect
 {
+    if (!_rectOverlay) {
+        _rectOverlay = [CAShapeLayer layer];
+        _rectOverlay.fillRule = kCAFillRuleEvenOdd;
+        
+        _rectOverlay.fillColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6].CGColor;
+        _rectOverlay.strokeColor = [UIColor blueColor].CGColor;
+        _rectOverlay.lineWidth = 1.0f;
+    }
+    
+    if (!_rectOverlay.superlayer) {
+        self.layer.masksToBounds = YES;
+        [self.layer addSublayer:_rectOverlay];
+    }
+    
     CGContextRef context = UIGraphicsGetCurrentContext();
     if (context)
     {
@@ -215,6 +237,18 @@
         CGContextFillPath(context);
         
         CGContextSetBlendMode(context, kCGBlendModeNormal);
+        
+        
+        // 背景遮罩路径
+        CGSize size = self.frame.size;
+        UIBezierPath *rectPath = [UIBezierPath bezierPathWithRect:CGRectMake(-5,
+                                                                             -5,
+                                                                             size.width + 10,
+                                                                             size.height + 10)];
+        [rectPath appendPath:[UIBezierPath bezierPathWithCGPath:pathRef]];
+        
+        _rectOverlay.path = rectPath.CGPath;
+        
         CGPathRelease(pathRef);
     }
 }
@@ -268,17 +302,10 @@
         float cross = (ab.x * cb.y - ab.y * cb.x); // cross product
         
         float alpha = atan2(cross, dot);
-        
-        
         //        NSLog(@"%f", -1*(float) floor(alpha * 180. / 3.14 + 0.5));
-        
-        
-        
         if((-1*(float) floor(alpha * 180. / 3.14 + 0.5))<0){
             return -1*(float) floor(alpha * 180. / 3.14 + 0.5);
         }
-        
-        
     }
     return 0;
     
@@ -454,11 +481,9 @@
         
         CGRect extentedFrame = CGRectInset(point.frame, -20, -20);
         
-//        NSLog(@"For Point %d Location%f %f and Point %f %f",i,location.x,location.y,point.frame.origin.x,point.frame.origin.y);
         if (CGRectContainsPoint(extentedFrame, location))
         {
             CGFloat distanceToThis = [self distanceBetween:point.frame.origin And:location];
-            NSLog(@"Distance%f",distanceToThis);
             if(distanceToThis<smallestDistance){
                 self.activePoint = point;
                 
@@ -476,9 +501,7 @@
         i++;
     }
     if(self.activePoint) self.activePoint.backgroundColor = [UIColor redColor];
-    
-    NSLog(@"Active Point%@",self.activePoint);
-    
+//    NSLog(@"Active Point%@",self.activePoint);
 }
 
 
@@ -501,7 +524,10 @@
     locationPoint = CGPointMake(newX, newY);
     
     if (self.activePoint && !middlePoint){
-        self.activePoint.frame = CGRectMake(locationPoint.x -kCropButtonSize/2, locationPoint.y -kCropButtonSize/2, kCropButtonSize, kCropButtonSize);
+        self.activePoint.frame = CGRectMake(locationPoint.x -kCropButtonSize/2,
+                                            locationPoint.y -kCropButtonSize/2,
+                                            kCropButtonSize,
+                                            kCropButtonSize);
         [self cornerControlsMiddle];
         
 //        NSLog(@"Point D %f %f",_pointD.frame.origin.x,_pointD.frame.origin.y);

@@ -20,6 +20,8 @@
     int currentIndex,previousIndex;
     int k;
     
+    CAShapeLayer *_rectOverlay;//边缘识别遮盖
+    
 }
 @property (nonatomic, strong) UIView *activePoint;
 

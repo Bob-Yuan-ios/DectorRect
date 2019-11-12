@@ -15,6 +15,10 @@
 #import "WLResultVC.h"
 #import "WLCropViewController.h"
 
+#import "MMCropView.h"
+
+#import "WLCameraCropV.h"
+
 @interface WLCameraCaptureController ()
 <
 UINavigationControllerDelegate,
@@ -39,7 +43,9 @@ MMCropDelegate
     
 // 拍照视图
 @property (nonatomic, strong) WLCameraCaptureView *captureCameraView;
-    
+
+@property (nonatomic, strong) WLCameraCropV *cameraCropV;
+
 // 聚焦指示器
 @property (nonatomic, strong) UIView *focusIndicator;
     
@@ -60,6 +66,7 @@ MMCropDelegate
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.delegate = self;
     [self initUI];
+    
     // 设置需要更新约束
     [self.view setNeedsUpdateConstraints];
 }
@@ -67,17 +74,22 @@ MMCropDelegate
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    // 关闭闪光灯
-    self.captureCameraView.enableTorch = NO;
-    // 停止捕获图像
-    [self.captureCameraView stop];
+//    // 关闭闪光灯
+//    self.captureCameraView.enableTorch = NO;
+//    // 停止捕获图像
+//    [self.captureCameraView stop];
+    
+    self.cameraCropV.enableTorch = NO;
+    [self.cameraCropV stop];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    // 开始捕获图像
-    [self.captureCameraView start];
+//    // 开始捕获图像
+//    [self.captureCameraView start];
+    
+    [self.cameraCropV start];
 }
 
 /**
@@ -90,12 +102,17 @@ MMCropDelegate
     [self.navToolBar addSubview:self.leftBtn];
     [self.navToolBar addSubview:self.flashLigthToggle];
     [self.navToolBar addSubview:self.navTitleLabel];
-    // 拍照视图
-    [self.view addSubview:self.captureCameraView];
-    [self.captureCameraView setupCameraView];
-    // 添加单机手势
-    [self.captureCameraView addGestureRecognizer:self.tapGestureRecognizer];
+    
+//    // 拍照视图
+//    [self.view addSubview:self.captureCameraView];
+//    [self.captureCameraView setupCameraView];
+//    // 添加单机手势
+//    [self.captureCameraView addGestureRecognizer:self.tapGestureRecognizer];
+    
+    [self.view addSubview:self.cameraCropV];
+    [self.cameraCropV addGestureRecognizer:self.tapGestureRecognizer];
     [self.tapGestureRecognizer addTarget:self action:@selector(handleTapGesture:)];
+    
     // 拍照按钮
     [self.view addSubview:self.snapshotBtn];
     // 添加聚焦指示器
@@ -121,31 +138,64 @@ MMCropDelegate
 
 #pragma mark - engine
 - (void)onFlashLigthToggle {
-    BOOL enable = !self.captureCameraView.isTorchEnabled;
-    self.captureCameraView.enableTorch = enable;
-    [self updateTitleLabel];
+//    BOOL enable = !self.captureCameraView.isTorchEnabled;
+//    self.captureCameraView.enableTorch = enable;
+//    [self updateTitleLabel];
+    
+    
+        BOOL enable = !self.cameraCropV.isTorchEnabled;
+        self.cameraCropV.enableTorch = enable;
+        [self updateTitleLabel];
 }
 
 - (void)onSnapshotBtn:(id)sender {
-    
-    
+
     __weak typeof(self) weakSelf = self;
-    [self.captureCameraView captureImageWithCompletionHandler:^(UIImage *data, CIRectangleFeature *borderDetectFeature) {
+    [self.cameraCropV completeWithBlock:^(TransformCIFeatureRect fe, UIImage *img, CGSize size) {
         __strong typeof(self) strongSelf = weakSelf;
         
-        if(borderDetectFeature){
-            [strongSelf.nav popViewControllerAnimated:NO];
-
-            WLResultVC *resultVC = [[WLResultVC alloc] init];
-            resultVC.resultImg = data;
-            [strongSelf.nav pushViewController:resultVC animated:YES];
-        }else{
-            WLCropViewController *crop = [WLCropViewController new];
-            crop.adjustedImage = data;
-            crop.cropdelegate = self;
-            [strongSelf.nav presentViewController:crop animated:YES completion:nil];
-        }
+        WLCropViewController *crop = [WLCropViewController new];
+        crop.adjustedImage = img;
+        crop.cropdelegate = strongSelf;
+        crop.detectFeature = fe;
+        crop.orgSize = size;
+        
+        [strongSelf.nav presentViewController:crop animated:YES completion:nil];
     }];
+    
+//    __weak typeof(self) weakSelf = self;
+//#warning 适配手动裁剪
+//    [self.captureCameraView captureImageWithCompletionHandler:^(UIImage *data, CIRectangleFeature *borderDetectFeature) {
+////    [self.captureCameraView captureImageWithCompletionHandler:^(UIImage *data, TransformCIFeatureRect *borderDetectFeature) {
+//        __strong typeof(self) strongSelf = weakSelf;
+//
+//        if(borderDetectFeature){
+//            [strongSelf.nav popViewControllerAnimated:NO];
+//
+//            WLResultVC *resultVC = [[WLResultVC alloc] init];
+//            resultVC.resultImg = data;
+//            [strongSelf.nav pushViewController:resultVC animated:YES];
+//
+//        }else{
+//            WLCropViewController *crop = [WLCropViewController new];
+//            crop.adjustedImage = data;
+//            crop.cropdelegate = self;
+//            [strongSelf.nav presentViewController:crop animated:YES completion:nil];
+//        }
+//    }];
+    
+//#warning 适配手动裁剪
+//    __weak typeof(self) weakSelf = self;
+//    [self.captureCameraView captureImageWithCompletionHandler:^(UIImage *data, TransformCIFeatureRect *borderDetectFeature) {
+//        __strong typeof(self) strongSelf = weakSelf;
+//
+//        WLCropViewController *crop = [WLCropViewController new];
+//        crop.adjustedImage = data;
+//        crop.cropdelegate = strongSelf;
+//        crop.detectFeature = borderDetectFeature;
+//        [strongSelf.nav presentViewController:crop animated:YES completion:nil];
+//
+//    }];
 }
 
 
@@ -169,15 +219,27 @@ MMCropDelegate
 
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)sender{
-    if (sender.state == UIGestureRecognizerStateRecognized)
-    {
-        CGPoint location = [sender locationInView:self.view];
-        [self.captureCameraView focusAtPoint:location completionHandler:^
-         {
-             [self focusIndicatorAnimateToPoint:location];
-         }];
-        [self focusIndicatorAnimateToPoint:location];
-    }
+//    if (sender.state == UIGestureRecognizerStateRecognized)
+//    {
+//        CGPoint location = [sender locationInView:self.view];
+//        [self.captureCameraView focusAtPoint:location completionHandler:^
+//         {
+//             [self focusIndicatorAnimateToPoint:location];
+//         }];
+//        [self focusIndicatorAnimateToPoint:location];
+//    }
+    
+    
+        if (sender.state == UIGestureRecognizerStateRecognized)
+        {
+            CGPoint location = [sender locationInView:self.view];
+            [self.cameraCropV focusAtPoint:location completionHandler:^
+             {
+                 [self focusIndicatorAnimateToPoint:location];
+             }];
+            [self focusIndicatorAnimateToPoint:location];
+        }
+
 }
 
 - (void)focusIndicatorAnimateToPoint:(CGPoint)targetPoint
@@ -214,7 +276,7 @@ MMCropDelegate
     animation.subtype = kCATransitionFromBottom;
     animation.duration = 0.5;
     [self.navTitleLabel.layer addAnimation:animation forKey:@"kCATransitionFade"];
-    self.navTitleLabel.text = self.captureCameraView.isTorchEnabled ? @"闪光灯 开" : @"闪光灯 关";
+    self.navTitleLabel.text = self.cameraCropV.isTorchEnabled ? @"闪光灯 开" : @"闪光灯 关";
 }
 
 
@@ -290,10 +352,19 @@ MMCropDelegate
     return _snapshotBtn;
 }
 
+- (WLCameraCropV *)cameraCropV{
+    if (!_cameraCropV) {
+        _cameraCropV = [[WLCameraCropV alloc] initWithFrame:self.view.bounds];
+        _cameraCropV.backgroundColor = kBlackColor;
+    }
+    
+    return _cameraCropV;
+}
+
 - (WLCameraCaptureView *)captureCameraView
 {
     if (!_captureCameraView) {
-        _captureCameraView = [[WLCameraCaptureView alloc] initWithFrame:CGRectMake(0, 0, kSCREEN_WIDTH, 300)];
+        _captureCameraView = [[WLCameraCaptureView alloc] initWithFrame:self.view.bounds];
         //打开边缘检测
         [_captureCameraView setEnableBorderDetection:YES];
         _captureCameraView.backgroundColor = kBlackColor;
@@ -305,7 +376,7 @@ MMCropDelegate
 {
     if (!_tapGestureRecognizer) {
         _tapGestureRecognizer = [[UITapGestureRecognizer alloc] init];
-        //        _tapGestureRecognizer.delegate = self;
+      //_tapGestureRecognizer.delegate = self;
     }
     return _tapGestureRecognizer;
 }
@@ -346,7 +417,15 @@ MMCropDelegate
         make.centerX.mas_equalTo(self.view);
     }];
     
-    [_captureCameraView mas_makeConstraints:^(MASConstraintMaker *make) {
+//    [_captureCameraView mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.right.mas_equalTo(0);
+//        make.top.mas_equalTo(self->_navToolBar.mas_bottom);
+//        make.bottom.mas_equalTo(0 - kBOTTOM_H);
+//    }];
+    
+    
+    [_cameraCropV mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(self->_navToolBar.mas_bottom);

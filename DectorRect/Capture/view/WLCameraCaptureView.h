@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WLCGTransfromHelper.h"
 
+#warning 适配自动裁剪
 typedef void(^CompletionHandler)(UIImage *image, CIRectangleFeature *borderDetectFeature);
+//typedef void(^CompletionHandler)(UIImage *image, TransformCIFeatureRect *borderDetectFeature);
+
 @interface WLCameraCaptureView : UIView
 
 /// 创建视图捕获view

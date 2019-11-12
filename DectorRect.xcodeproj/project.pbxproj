@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		045F29942373F355003414CC /* DSMagnifierView.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F29922373F355003414CC /* DSMagnifierView.m */; };
 		0462F336230D36E200350DE7 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 0462F335230D36E200350DE7 /* index.html */; };
 		0462F33F230D3C4300350DE7 /* STPhotoBroswer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0462F339230D3C4300350DE7 /* STPhotoBroswer.m */; };
 		0462F340230D3C4300350DE7 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0462F33C230D3C4300350DE7 /* UIView+Extension.m */; };
@@ -14,7 +15,9 @@
 		048A7F27230F789B00530FAA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048A7F26230F789B00530FAA /* Foundation.framework */; };
 		048A7F28230F78A300530FAA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51710FB71FAB7A6E002CDCD7 /* UIKit.framework */; };
 		048D8D9B22EFEDE300A9F1DD /* WLResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 048D8D9A22EFEDE300A9F1DD /* WLResultVC.m */; };
+		0495B56F237A3D90003DF259 /* WLCameraCropV.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495B56E237A3D90003DF259 /* WLCameraCropV.m */; };
 		04C236B9236A6D0300EB294C /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C236B8236A6D0300EB294C /* opencv2.framework */; };
+		04F51BCB237A4C4000A5DA6C /* WLDectV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04F51BCA237A4C4000A5DA6C /* WLDectV.mm */; };
 		04F786ED230F73A600CBF8D1 /* WLCropViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04F786EC230F73A600CBF8D1 /* WLCropViewController.mm */; };
 		04F786F4230F748100CBF8D1 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F786F2230F748100CBF8D1 /* UIImage+fixOrientation.m */; };
 		04F786F5230F748100CBF8D1 /* UIImageView+ContentFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F786F3230F748100CBF8D1 /* UIImageView+ContentFrame.m */; };
@@ -55,6 +58,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		045F29922373F355003414CC /* DSMagnifierView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSMagnifierView.m; sourceTree = "<group>"; };
+		045F29932373F355003414CC /* DSMagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSMagnifierView.h; sourceTree = "<group>"; };
 		0462F335230D36E200350DE7 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = SOURCE_ROOT; };
 		0462F338230D3C4300350DE7 /* STImageVIew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STImageVIew.h; sourceTree = "<group>"; };
 		0462F339230D3C4300350DE7 /* STPhotoBroswer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPhotoBroswer.m; sourceTree = "<group>"; };
@@ -65,7 +70,11 @@
 		048A7F26230F789B00530FAA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		048D8D9922EFEDE300A9F1DD /* WLResultVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLResultVC.h; sourceTree = "<group>"; };
 		048D8D9A22EFEDE300A9F1DD /* WLResultVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WLResultVC.m; sourceTree = "<group>"; };
+		0495B56D237A3D90003DF259 /* WLCameraCropV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLCameraCropV.h; sourceTree = "<group>"; };
+		0495B56E237A3D90003DF259 /* WLCameraCropV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WLCameraCropV.m; sourceTree = "<group>"; };
 		04C236B8236A6D0300EB294C /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		04F51BC9237A4C4000A5DA6C /* WLDectV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLDectV.h; sourceTree = "<group>"; };
+		04F51BCA237A4C4000A5DA6C /* WLDectV.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WLDectV.mm; sourceTree = "<group>"; };
 		04F786EB230F73A600CBF8D1 /* WLCropViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCropViewController.h; sourceTree = "<group>"; };
 		04F786EC230F73A600CBF8D1 /* WLCropViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WLCropViewController.mm; sourceTree = "<group>"; };
 		04F786F0230F748100CBF8D1 /* UIImageView+ContentFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+ContentFrame.h"; sourceTree = "<group>"; };
@@ -142,6 +151,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		045F29912373F355003414CC /* DSMagnifier */ = {
+			isa = PBXGroup;
+			children = (
+				045F29932373F355003414CC /* DSMagnifierView.h */,
+				045F29922373F355003414CC /* DSMagnifierView.m */,
+			);
+			path = DSMagnifier;
+			sourceTree = "<group>";
+		};
 		0462F337230D3C4300350DE7 /* tool */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,12 +253,15 @@
 		511A000F1FA4CA9C00C95093 /* DectorRect */ = {
 			isa = PBXGroup;
 			children = (
+				045F29912373F355003414CC /* DSMagnifier */,
 				0462F335230D36E200350DE7 /* index.html */,
 				511A00421FA4CB6A00C95093 /* Capture */,
 				511A00101FA4CA9C00C95093 /* AppDelegate.h */,
 				511A00111FA4CA9C00C95093 /* AppDelegate.m */,
 				511A00131FA4CA9C00C95093 /* WLRootVC.h */,
 				511A00141FA4CA9C00C95093 /* WLRootVC.m */,
+				0495B56D237A3D90003DF259 /* WLCameraCropV.h */,
+				0495B56E237A3D90003DF259 /* WLCameraCropV.m */,
 				04F786EB230F73A600CBF8D1 /* WLCropViewController.h */,
 				04F786EC230F73A600CBF8D1 /* WLCropViewController.mm */,
 				5175D6941FA4D99A003923CA /* WLCameraCaptureController.h */,
@@ -252,6 +273,8 @@
 				511A001E1FA4CA9C00C95093 /* Info.plist */,
 				511A001F1FA4CA9C00C95093 /* main.m */,
 				51BDB5E21FB3459300B37FAF /* MADPrefixHeader.pch */,
+				04F51BC9237A4C4000A5DA6C /* WLDectV.h */,
+				04F51BCA237A4C4000A5DA6C /* WLDectV.mm */,
 			);
 			path = DectorRect;
 			sourceTree = "<group>";
@@ -371,7 +394,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1010;
-				ORGANIZATIONNAME = "梁宪松";
+				ORGANIZATIONNAME = Bob;
 				TargetAttributes = {
 					511A000C1FA4CA9C00C95093 = {
 						CreatedOnToolsVersion = 9.0.1;
@@ -396,6 +419,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 511A00041FA4CA9C00C95093;
 			productRefGroup = 511A000E1FA4CA9C00C95093 /* Products */;
@@ -462,17 +486,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04F51BCB237A4C4000A5DA6C /* WLDectV.mm in Sources */,
 				04F786ED230F73A600CBF8D1 /* WLCropViewController.mm in Sources */,
 				04F78701230F758100CBF8D1 /* MTGeometry.c in Sources */,
 				04F786F8230F74D900CBF8D1 /* MMOpenCVHelper.mm in Sources */,
 				0462F340230D3C4300350DE7 /* UIView+Extension.m in Sources */,
 				5175D6961FA4D99A003923CA /* WLCameraCaptureController.m in Sources */,
+				045F29942373F355003414CC /* DSMagnifierView.m in Sources */,
 				5175D6931FA4D6DF003923CA /* WLSnapshotButton.m in Sources */,
 				04F786F5230F748100CBF8D1 /* UIImageView+ContentFrame.m in Sources */,
 				51710FB31FAB795D002CDCD7 /* WLCGTransfromHelper.m in Sources */,
 				0462F341230D3C4300350DE7 /* STImageVIew.m in Sources */,
 				511A00151FA4CA9C00C95093 /* WLRootVC.m in Sources */,
 				048D8D9B22EFEDE300A9F1DD /* WLResultVC.m in Sources */,
+				0495B56F237A3D90003DF259 /* WLCameraCropV.m in Sources */,
 				04F786FB230F751E00CBF8D1 /* UIColor+HexRepresentation.m in Sources */,
 				04F786F4230F748100CBF8D1 /* UIImage+fixOrientation.m in Sources */,
 				510D25331FAA12BE00C0D483 /* WLCameraCaptureView.m in Sources */,

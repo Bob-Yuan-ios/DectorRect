@@ -18,6 +18,9 @@
 #import "WLCropViewController.h"
 #import "WLCameraCaptureController.h"
 
+#import "UIImage+fixOrientation.h"
+
+
 @interface WLRootVC ()
 <
 WKUIDelegate,
@@ -359,7 +362,18 @@ MMCropDelegate
 #pragma mark imageDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [picker dismissViewControllerAnimated:YES completion:^{
-        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage]; //通过key值获取到图片
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage] ; //通过key值获取到图片
+        NSData *data = UIImagePNGRepresentation(image);
+        if (!data) {
+            data = UIImageJPEGRepresentation(image, 1);//需要改成0.5才接近原图片大小，原因请看下文
+        }
+        
+        double size = 1024 * 1024 * 4;
+        if (data.length > size) {
+            CGFloat scale = size/data.length;
+            image = [UIImage scaleImage:image toScale:scale];
+        }
+        
         WLCropViewController *crop = [WLCropViewController new];
         crop.adjustedImage = image;
         crop.cropdelegate = self;

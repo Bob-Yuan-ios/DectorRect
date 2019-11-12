@@ -8,8 +8,9 @@
 
 
 #import <UIKit/UIKit.h>
-#import "UIImage+fixOrientation.h"
 #import "UIImageView+ContentFrame.h"
+#import "WLCGTransfromHelper.h"
+
 
 @class WLCropViewController;
 @protocol MMCropDelegate <NSObject>
@@ -27,7 +28,10 @@
 @property (strong, nonatomic) UIImageView *sourceImageView;
 @property (strong, nonatomic) UIImage *adjustedImage,*cropgrayImage,*cropImage;
 
+@property (assign, nonatomic) TransformCIFeatureRect detectFeature;
+
+@property (assign, nonatomic) CGSize orgSize;
+
 //Detect Edges
--(void)detectEdges;
-- (void) closeWithCompletion:(void (^)(void))completion ;
+- (void) closeWithCompletion:(void (^)(void))completion;
 @end
